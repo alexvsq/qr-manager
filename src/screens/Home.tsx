@@ -26,7 +26,6 @@ export default function Home() {
                     func={addNum}
                     func2={quit}
                 >
-                    <View className='w-full h-[2px] bg-lines-dark'></View>
                     {
                         Array(cardsNum).fill(1).map((_, index) => {
                             return <RowCards key={index} />

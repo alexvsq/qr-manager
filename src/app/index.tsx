@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from '@/screens/Home'
+import NavBarFooter from '@/components/NavBarFooter'
 
 export default function App() {
     return (
@@ -8,6 +9,7 @@ export default function App() {
             <StatusBar style='dark' backgroundColor='#000000' />
             <View className='flex-1 bg-bg-1 '>
                 <Home />
+                <NavBarFooter />
             </View>
         </>
     );
