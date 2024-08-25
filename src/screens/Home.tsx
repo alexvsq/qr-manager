@@ -4,9 +4,11 @@ import { useEffect } from 'react'
 import { Image } from 'expo-image';
 import CardPrincipal from '@/components/CardPrincipal';
 import { runOnUI, withSpring, measure, useAnimatedRef, useSharedValue } from 'react-native-reanimated'
+import { useRouter } from 'expo-router';
 
 export default function Home() {
 
+    const router = useRouter()
     const [cardsNum, setCardsNum] = useState(1)
     const addNum = () => {
         setCardsNum(cardsNum + 1)
@@ -35,7 +37,9 @@ export default function Home() {
             <View className='bg-white w-full h-full rounded-t-[20px] p-4'>
                 <View className='flex flex-row justify-between items-center my-2'>
                     <Text className='text-black text-lg font-semibold'>Codigos Creados</Text>
-                    <Text className='text-text-dark'>Eliminar</Text>
+                    <Pressable onPress={() => router.navigate('/about')}>
+                        <Text className='text-text-dark'>Eliminar</Text>
+                    </Pressable>
                 </View>
 
                 <View>
