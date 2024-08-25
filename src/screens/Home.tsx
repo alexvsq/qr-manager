@@ -8,21 +8,21 @@ import { runOnUI, withSpring, measure, useAnimatedRef, useSharedValue } from 're
 export default function Home() {
 
     const [cardsNum, setCardsNum] = useState(1)
+    const addNum = () => {
+        setCardsNum(cardsNum + 1)
+    }
+    const quit = () => {
+        setCardsNum(1)
+    }
 
-    /*     const listRef = useAnimatedRef()
-        const heightValue = useSharedValue(0)
-        useEffect(() => {
-            runOnUI(() => {
-                'worklet';
-                heightValue.value = withSpring(measure(listRef)!.height)
-            })();
-        }, []) */
 
     return (
         <>
             <View className='px-3'>
                 <CardPrincipal
                     title='Create'
+                    func={addNum}
+                    func2={quit}
                 >
                     <View className='w-full h-[2px] bg-lines-dark'></View>
                     {
