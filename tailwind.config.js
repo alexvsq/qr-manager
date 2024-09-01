@@ -11,6 +11,7 @@ module.exports = {
         'lines-light': '#EAEAEA',
         'text-dark': '#545454',
         'blue': '#3A86FF',
+        'delete-red': '#781515'
       },
     },
   },

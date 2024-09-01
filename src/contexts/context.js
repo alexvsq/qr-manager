@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const Context = createContext();

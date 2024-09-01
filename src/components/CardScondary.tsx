@@ -2,21 +2,9 @@ import { View, Text, Pressable } from 'react-native'
 import { useRouter } from 'expo-router';
 import { useContextData } from '@/contexts/context'
 
-export default function CardScondary({ children }: { children: React.ReactNode }) {
+export default function CardScondary({ children, title }: { children: React.ReactNode, title: string }) {
 
     const router = useRouter()
-    const { screen } = useContextData()
-
-    let title
-    if (screen === 'scanner') {
-        title = 'Scann a QR code'
-    } else if (screen === 'create') {
-        title = 'Codes Created'
-    } else if (screen === 'history') {
-        title = 'History '
-    } else if (screen === 'settings') {
-        title = 'Settings'
-    }
 
     return (
         <View className="bg-white rounded-t-[20px] p-4 flex-1">

@@ -40,8 +40,10 @@ export default function CardPrincipal({ children, title }: Props) {
         })();
     }, [listRef]);
 
+
+
     return (
-        <Animated.View className='bg-bg-2 w-full rounded-[20px] px-3 py-2 mb-5 overflow-hidden '>
+        <Animated.View className='bg-bg-2 w-full rounded-[20px] px-3 py-1 mb-5 overflow-hidden '>
             <View className='my-2 px-2 flex flex-row items-center justify-between'>
                 <Text className='text-white text-base font-semibold'>{title}</Text>
                 <Pressable

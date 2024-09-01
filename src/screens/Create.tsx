@@ -10,6 +10,7 @@ export function PrincipalCreate() {
         >
             <RowCards />
             <RowCards />
+            <RowCards />
         </Animated.View>
     )
 }

@@ -1,12 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { PrincipalCreate, SecondaryCreate } from '@/screens/Create';
-import { PrincipalHistory, SecondaryHistory } from '@/screens/History';
-import { PrincipalScanner, SecondaryScanner } from '@/screens/Scanner';
-import NavBarFooter from '@/components/NavBarFooter'
-import CardPrincipal from '@/components/CardPrincipal';
-import CardScondary from '@/components/CardScondary';
+import { SecondaryCreate } from '@/screens/Create';
+import { SecondaryHistory } from '@/screens/History';
+import { SecondaryScanner } from '@/screens/Scanner';
 import { useContextData } from '@/contexts/context'
-import BackGround from '@/components/BackGround';
 
 export default function SecondaryPage() {
     const { screen } = useContextData()

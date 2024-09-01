@@ -6,7 +6,7 @@ import { useContextData } from '@/contexts/context'
 
 export default function footeNavbar() {
 
-    const { setScreen } = useContextData();
+    const { screen, setScreen } = useContextData();
 
     const screens = [
         {
@@ -14,12 +14,12 @@ export default function footeNavbar() {
             name: 'scanner'
         },
         {
-            module: IconCreate,
-            name: 'create'
-        },
-        {
             module: IconHistory,
             name: 'history'
+        },
+        {
+            module: IconCreate,
+            name: 'create'
         },
         {
             module: IconSettings,
@@ -31,19 +31,22 @@ export default function footeNavbar() {
 
     return (
         <View className='absolute bottom-0 w-full h-[70px]  flex justify-center items-center'>
-            <View className='bg-bg-2 py-3 px-7  rounded-full'>
+            <View className='bg-bg-2 py-[7px] px-2  rounded-full'>
                 <View style={styles.containerButtons}>
                     {
                         screens.map((item, index) => {
+
                             return (
                                 <Pressable
                                     key={index}
                                     onPress={() => {
                                         setScreen(item.name)
-
                                     }}
+                                    className={`${item.name == screen ? 'bg-blue rounded-full' : ''} p-[7px] `}
                                 >
-                                    <item.module />
+                                    <item.module
+                                        active={item.name == screen ? true : false}
+                                    />
                                 </Pressable>
                             )
                         })
@@ -59,6 +62,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        gap: 40
+        gap: 30
     },
 })

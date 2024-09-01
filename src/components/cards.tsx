@@ -1,13 +1,14 @@
-import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Image } from 'expo-image';
-import { styled } from 'nativewind';
+import { router, useRouter } from 'expo-router'
+import { HistoryData } from '@/types/types'
 
 
 type PropsIconCard = {
     source: string,
     title: string,
     func?: () => void,
+    func2?: () => void,
     active?: boolean
 }
 
@@ -55,11 +56,44 @@ export function CardCodes() {
         </View>
     )
 }
-export function IconCard({ source, title, func, active }: PropsIconCard) {
+export function HistoryCardCodes({ itemInfo }: { itemInfo: HistoryData }) {
+    const time = itemInfo.date?.split(',')[0]
+    const title = itemInfo.value?.length > 30 ? itemInfo.value.slice(0, 28) + '...' : itemInfo.value
+    return (
+        <>
+            <Pressable
+                style={({ pressed }) => [[{ marginVertical: 8 }], [pressed && { backgroundColor: '#EFEFEF', borderRadius: 10 }]]}
+                onPress={() => { router.push('/page-codeHistory/' + itemInfo.id) }}
+            >
+                <View className='flex flex-row justify-between items-center p-2'>
+                    <View className='flex-1 pl-1 pr-4'>
+                        <Text className='text-black text-base font-semibold'>{title}</Text>
+                        <View className='flex flex-row justify-between  items-center mt-1 '>
+                            <View className='bg-blue py-[2px] px-3 rounded-full '>
+                                <Text className=' font-semibold text-white text-[12px]'>{itemInfo.type}</Text>
+                            </View>
+                            <Text className='text-text-dark text-[12px]'>{time}</Text>
+                        </View>
+                    </View>
+
+                    <Image
+                        className='w-[20px] h-[20px]'
+                        contentFit='contain'
+                        source={require('@assets/icons/arrow-blue.png')}
+                    />
+
+                </View>
+            </Pressable>
+            <View className='w-full h-[1px] bg-lines-light'></View>
+        </>
+    )
+}
+export function IconCard({ source, title, func, func2, active }: PropsIconCard) {
     return (
         <View className=' flex  justify-center items-center'>
             <Pressable
                 onPress={func}
+                onLongPress={func2}
                 style={({ pressed }) => [
                     styles.iconPressable, active && { backgroundColor: '#3F3F3F' }, pressed && { backgroundColor: '#3F3F3F' }
                 ]}
@@ -76,15 +110,14 @@ export function IconCard({ source, title, func, active }: PropsIconCard) {
         </View>
     )
 }
-//className='w-[58px] h-[58px] p-4 border-[1px] rounded-full border-lines-dark'
 const styles = StyleSheet.create({
     iconPressable: {
-        width: 58,
-        height: 58,
+        width: 50,
+        height: 50,
         borderWidth: 1,
         borderColor: '#3F3F3F',
         borderRadius: 100,
-        padding: 14,
-        marginBottom: 10
+        padding: 12,
+        marginBottom: 5
     }
 })

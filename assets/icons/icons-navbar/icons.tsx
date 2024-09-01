@@ -1,7 +1,11 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 
-export function IconCreate() {
+interface IconProps {
+    active?: boolean;
+}
+
+export function IconCreate({ active = false }: IconProps) {
     return (
         <Svg
             width={28}
@@ -12,17 +16,17 @@ export function IconCreate() {
         >
             <Path
                 d="M24.5 16.333v5.834a2.333 2.333 0 01-2.333 2.333H5.833A2.333 2.333 0 013.5 22.167V5.833A2.333 2.333 0 015.833 3.5h5.834v2.333H5.833v16.334h16.334v-5.834H24.5z"
-                fill="#fff"
+                fill={active ? '#fff' : '#9F9F9F'}
             />
             <Path
                 d="M24.5 8.167h-4.667V3.5H17.5v4.667h-4.667V10.5H17.5v4.667h2.333V10.5H24.5V8.167z"
-                fill="#fff"
+                fill={active ? '#fff' : '#9F9F9F'}
             />
         </Svg>
     )
 }
 
-export function IconHistory() {
+export function IconHistory({ active = false }: IconProps) {
     return (
         <Svg
             width={24}
@@ -33,14 +37,14 @@ export function IconHistory() {
         >
             <Path
                 d="M12 7.333V12l2.333 2.333"
-                stroke="#9F9F9F"
+                stroke={active ? '#fff' : '#9F9F9F'}
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />
             <Path
                 d="M1.558 10.833a10.5 10.5 0 11.584 4.667m-.584 5.833V15.5h5.834"
-                stroke="#9F9F9F"
+                stroke={active ? '#fff' : '#9F9F9F'}
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -49,7 +53,7 @@ export function IconHistory() {
     )
 }
 
-export function IconScanner() {
+export function IconScanner({ active = false }: IconProps) {
     return (
         <Svg
             width={28}
@@ -60,13 +64,13 @@ export function IconScanner() {
         >
             <Path
                 d="M4.667 16.917a1.75 1.75 0 011.75 1.75v2.916H10.5a1.75 1.75 0 010 3.5H5.833a2.917 2.917 0 01-2.916-2.916v-3.5a1.75 1.75 0 011.75-1.75zm18.666 0a1.75 1.75 0 011.742 1.582l.008.168v3.5a2.917 2.917 0 01-2.725 2.91l-.191.006H17.5a1.75 1.75 0 01-.168-3.491l.168-.009h4.083v-2.916a1.75 1.75 0 011.75-1.75zm0-4.667a1.75 1.75 0 01.168 3.492l-.168.008H4.667a1.75 1.75 0 01-.168-3.492l.168-.008h18.666zM10.5 2.917a1.75 1.75 0 01.168 3.491l-.168.009H6.417v2.916a1.75 1.75 0 01-3.492.168l-.008-.168v-3.5a2.917 2.917 0 012.725-2.91l.191-.006H10.5zm11.667 0a2.916 2.916 0 012.91 2.725l.006.191v3.5a1.75 1.75 0 01-3.491.168l-.009-.168V6.417H17.5a1.75 1.75 0 01-.168-3.492l.168-.008h4.667z"
-                fill="#9F9F9F"
+                fill={active ? '#fff' : '#9F9F9F'}
             />
         </Svg>
     )
 }
 
-export function IconSettings() {
+export function IconSettings({ active = false }: IconProps) {
     return (
         <Svg
             width={28}
@@ -77,11 +81,11 @@ export function IconSettings() {
         >
             <Path
                 d="M23.625 14.665v-1.339l1.68-1.47a1.75 1.75 0 00.332-2.231l-2.064-3.5a1.75 1.75 0 00-1.514-.875 1.75 1.75 0 00-.56.087l-2.127.718a9.621 9.621 0 00-1.146-.656l-.446-2.205a1.75 1.75 0 00-1.75-1.409h-4.095a1.75 1.75 0 00-1.75 1.409l-.446 2.205c-.4.193-.785.412-1.155.656L6.5 5.302a1.75 1.75 0 00-.56-.052 1.75 1.75 0 00-1.514.875l-2.065 3.5a1.75 1.75 0 00.36 2.196l1.653 1.514v1.339l-1.654 1.47a1.75 1.75 0 00-.359 2.231l2.065 3.5a1.75 1.75 0 001.514.875c.19.001.38-.028.56-.087l2.126-.718c.367.245.75.464 1.147.656l.446 2.205a1.75 1.75 0 001.75 1.409h4.13a1.75 1.75 0 001.75-1.409l.446-2.205c.4-.193.785-.412 1.155-.656l2.118.718c.18.059.37.088.56.087a1.75 1.75 0 001.513-.875l1.995-3.5a1.75 1.75 0 00-.358-2.196l-1.654-1.514zM22.059 21l-3.002-1.015a7.786 7.786 0 01-2.37 1.374l-.622 3.141h-4.13l-.621-3.106A8.224 8.224 0 018.95 20.02l-3.01.98-2.065-3.5 2.38-2.1a7.788 7.788 0 010-2.739L3.876 10.5 5.941 7l3.001 1.015a7.787 7.787 0 012.372-1.374l.621-3.141h4.13l.621 3.106A8.225 8.225 0 0119.05 7.98l3.01-.98 2.065 3.5-2.38 2.1a7.787 7.787 0 010 2.739l2.38 2.161-2.065 3.5z"
-                fill="#9F9F9F"
+                fill={active ? '#fff' : '#9F9F9F'}
             />
             <Path
                 d="M14 19.25A5.25 5.25 0 1119.25 14 5.2 5.2 0 0114 19.25zm0-8.75a3.42 3.42 0 00-3.5 3.5 3.42 3.42 0 003.5 3.5 3.42 3.42 0 003.5-3.5 3.42 3.42 0 00-3.5-3.5z"
-                fill="#9F9F9F"
+                fill={active ? '#fff' : '#9F9F9F'}
             />
         </Svg>
     )

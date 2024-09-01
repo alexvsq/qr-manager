@@ -1,4 +1,3 @@
-
 import { PrincipalCreate, } from '@/screens/Create';
 import { PrincipalHistory, } from '@/screens/History';
 import { PrincipalScanner, } from '@/screens/Scanner';
