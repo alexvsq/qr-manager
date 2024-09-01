@@ -15,7 +15,7 @@ export default function App() {
 
     return (
         <>
-            <View className='bg-bg-1 flex-1 flex justify-between'>
+            <View className='bg-bg-1 flex-1'>
                 <View className='px-3'>
                     <CardPrincipal title={title}>
                         <PrincipalPage />

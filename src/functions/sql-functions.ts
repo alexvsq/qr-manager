@@ -1,37 +1,24 @@
 import * as SQLite from "expo-sqlite";
 import { HistoryData } from "@/types/types";
 
-async function initDatabase() {
-  const db = await SQLite.openDatabaseAsync("database.db");
-  await db.execAsync(`
-    PRAGMA journal_mode = WAL;
-    CREATE TABLE IF NOT EXISTS qrhistory (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      date  TEXT NOT NULL,
-      value TEXT NOT NULL,
-      type TEXT NOT NULL,
-      typeCode TEXT NOT NULL
-      );
-      `);
-  return db;
-}
-
-export async function saveDataQr(data: string, type: string, typeCode: string) {
+export async function saveDataQr(dataScanned: HistoryData) {
   try {
+    const { value, type, typeCode, titleName, date } = dataScanned;
+    const data = value;
     const db = await initDatabase();
-    const date = new Date().toLocaleString();
     const result = await db.runAsync(
-      "INSERT INTO qrhistory (date,value, type, typeCode) VALUES (?, ?, ?, ?);",
-      [date, data, type, typeCode]
+      "INSERT INTO qrhistory (date,value, type, typeCode, titleName) VALUES (?, ?, ?, ?, ?);",
+      [date, data, type, typeCode, titleName!]
     );
-    console.log(result);
+    console.log("saved! , id: ", result.lastInsertRowId);
+    return result.lastInsertRowId;
   } catch (error) {
     console.log("saveDataQr", error);
   }
 }
 export async function getOneRow(id: string): Promise<HistoryData | null> {
   try {
-    const db = await SQLite.openDatabaseAsync("database.db");
+    const db = await initDatabase();
     const row = await db.getFirstAsync<HistoryData | null>(
       "SELECT * FROM qrhistory WHERE id = ?",
       [id]
@@ -62,15 +49,11 @@ export async function deleteOneRow(id: number) {
 
 export async function getAllDataSql() {
   try {
-    const db = await SQLite.openDatabaseAsync("database.db");
+    const db = await initDatabase();
     const result = await db.getAllAsync<HistoryData>("SELECT * FROM qrhistory");
-    if (result.length === 0) {
-      return [];
-    }
     return result;
   } catch (error) {
     console.error("getDataSql error:", error);
-    return [];
   }
 }
 
@@ -82,4 +65,20 @@ export async function deleteAllData() {
   } catch (error) {
     console.log(error);
   }
+}
+
+async function initDatabase() {
+  const db = await SQLite.openDatabaseAsync("database.db");
+  await db.execAsync(`
+    PRAGMA journal_mode = WAL;
+    CREATE TABLE IF NOT EXISTS qrhistory (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      date  TEXT NOT NULL,
+      value TEXT NOT NULL,
+      type TEXT NOT NULL,
+      typeCode TEXT NOT NULL,
+      titleName TEXT
+      );`);
+
+  return db;
 }

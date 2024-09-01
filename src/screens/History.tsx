@@ -1,5 +1,6 @@
 import Animated, { FadeInDown, FadeInUp, SlideInRight } from 'react-native-reanimated';
-import { RowCards, HistoryCardCodes } from '@/components/cards';
+import { RowCards } from '@/components/cards';
+import HistoryCardCodes from '@/components/CardHistory';
 import { getAllDataSql } from '@/functions/sql-functions';
 import { useState, useEffect } from 'react';
 import { FlashList } from "@shopify/flash-list";
@@ -26,13 +27,10 @@ export function SecondaryHistory() {
     async function getDataSql2() {
         try {
             const result = await getAllDataSql();
-
-            // Type assertion: Ensure result is of type HistoryData[]
-            if (Array.isArray(result)) {
-                setData(result as HistoryData[]);
-            } else {
-                console.log("Unexpected result format", result);
+            if (result) {
+                setData(result)
             }
+
         } catch (error) {
             console.log("getDataSql2", error);
         }
@@ -57,7 +55,8 @@ export function SecondaryHistory() {
                     </Animated.View>
                 )}
                 estimatedItemSize={200}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) => item.id!.toString()}
+
             />
         </Animated.View>
     );
