@@ -13,11 +13,7 @@ export default function Detail() {
     const { id } = useLocalSearchParams();
     const [data, setData] = useState<HistoryData | null>()
 
-    useEffect(() => {
-        getOneRow(String(id))
-            .then(res => setData(res))
-
-    }, [])
+    const goToCreateQr = () => router.push('/page-generate-qr/' + encodeURIComponent(data!.value))
 
     const showAlertDelete = () => {
         Alert.alert(
@@ -40,6 +36,12 @@ export default function Detail() {
     const dateDay = data?.date?.split(',')[0]
     const dateTime = data?.date?.split(',')[1]
     const wifidata = data?.type == 'wifi' && getWifiData(data.value)
+
+    useEffect(() => {
+        getOneRow(String(id))
+            .then(res => setData(res))
+
+    }, [])
 
     return (
         <ScrollView style={styles.container}>
@@ -117,7 +119,9 @@ export default function Detail() {
                     </View>
 
                     <View className='flex  w-full items-center justify-center my-2'>
-                        <TouchableOpacity className='bg-blue py-1 px-4 rounded-full my-1'>
+                        <TouchableOpacity
+                            onPress={goToCreateQr}
+                            className='bg-blue py-1 px-4 rounded-full my-1'>
                             <Text className='text-white'>View Qr Code Image</Text>
                         </TouchableOpacity>
                         <TouchableOpacity

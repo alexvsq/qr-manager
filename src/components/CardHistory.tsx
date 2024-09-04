@@ -2,35 +2,24 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Image } from 'expo-image';
 import { router } from 'expo-router'
 import { HistoryData } from '@/types/types'
-import { returnSource } from '@/functions/functions'
-
-
-const goToPage = (type: string) => {
-    if (type === 'wifi') {
-        router.push('/page-wifi')
-    } else if (type === 'url') {
-        router.push('/page-url')
-    } else if (type === 'text') {
-
-    }
-
-}
+import { returnSource, shortenText } from '@/functions/functions'
 
 export default function HistoryCardCodes({ itemInfo }: { itemInfo: HistoryData }) {
+
     const time = itemInfo.date?.split(',')[0]
     let title
     if (itemInfo.titleName) {
-        title = itemInfo.titleName.length > 20 ? itemInfo.titleName.slice(0, 20) + '...' : itemInfo.titleName
+        title = shortenText(itemInfo.titleName)
     } else {
         title = itemInfo.value
     }
-    const valueRecort = itemInfo.value && itemInfo.value.length > 30 ? itemInfo.value.slice(0, 28) + '...' : itemInfo.value
+    const valueRecort = shortenText(itemInfo.value)
 
     return (
         <>
             <Pressable
                 style={({ pressed }) => [[{ marginVertical: 6 }], [pressed && { backgroundColor: '#EFEFEF', borderRadius: 10 }]]}
-                onPress={() => { router.push('/page-codeHistory/' + itemInfo.id) }}
+                onPress={() => router.push('/page-codeHistory/' + itemInfo.id)}
             >
                 <View className='flex flex-row justify-between items-center px-1 pt-2 pb-1 '>
                     <View className='flex flex-row  items-center flex-1'>

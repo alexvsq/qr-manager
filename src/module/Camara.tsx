@@ -2,30 +2,53 @@ import { CameraView, useCameraPermissions, BarcodeScanningResult } from 'expo-ca
 import { useEffect, useState } from 'react';
 import { StyleSheet, Modal, View, } from 'react-native';
 import { useContextData } from '@/contexts/context'
-import ModalComponent from '@/components/ModalComponent'
-import { validateANDSaveAndRun } from '@/functions/validates'
+import ModalScanned from '@/components/modals/ModalScanned'
+import { validateANDSave } from '@/functions/validates'
+import { router } from 'expo-router'
 
 export default function Camara() {
     const { torch } = useContextData()
     const [permission, requestPermission] = useCameraPermissions();
     const [modalVisible, setModalVisible] = useState(false);
     const [dataQr, setDataQr] = useState<BarcodeScanningResult>();
+    const [idDetails, setIdDetails] = useState<string>('')
 
     useEffect(() => {
         requestPermission()
     }, [])
 
-    const hideModal = () => setModalVisible(!modalVisible)
-    const RunData = () => {
-        setModalVisible(false)
-        validateANDSaveAndRun(dataQr!)
-    }
+    const hideModal = () => setModalVisible(prev => !prev)
 
-    const onBarcodeScanned = (data: BarcodeScanningResult) => {
-        if (modalVisible) return
+    const onBarcodeScanned = async (data: BarcodeScanningResult) => {
+        if (modalVisible) return;
+
         setDataQr(data);
         setModalVisible(true);
-    }
+
+        const id = await validateAndSaveData(data);
+        if (id) {
+            setIdDetails(String(id));
+        }
+    };
+
+    const validateAndSaveData = async (data: BarcodeScanningResult) => {
+        if (!data) return null;
+        try {
+            const id = await validateANDSave(data);
+            console.log('Data saved with ID:', id);
+            return id;
+        } catch (error) {
+            console.error('Error saving data:', error);
+            return null;
+        }
+    };
+
+    const goToPageDetails = () => {
+        if (!idDetails) return;
+        router.push(`/page-codeHistory/${idDetails}`);
+        setIdDetails('')
+    };
+
     return (
         <View style={styles.camera}>
             <Modal
@@ -33,9 +56,9 @@ export default function Camara() {
                 transparent={true}
                 visible={modalVisible}
             >
-                <ModalComponent
+                <ModalScanned
                     hideModal={hideModal}
-                    RunData={RunData}
+                    goToDetails={goToPageDetails}
                     dataQR={dataQr!}
                 />
             </Modal>

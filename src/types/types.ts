@@ -13,3 +13,21 @@ export interface WifiData {
   security: string;
   hidden: string;
 }
+
+export interface ContactData {
+  name: string;
+  fullName: string;
+  organization: string;
+  title: string;
+  phone: string;
+}
+export interface EmailData {
+  to: string;
+  subject: string;
+  body: string;
+}
+
+export interface SMSData {
+  phoneNumber: string;
+  message: string;
+}
