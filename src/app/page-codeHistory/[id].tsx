@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { HistoryData } from '@/types/types'
 import { Image } from 'expo-image';
 import { returnSource } from '@/functions/functions'
-import { getWifiData } from '@/functions/functions'
 import { router } from 'expo-router'
+import Component from './components/Component'
 
 export default function Detail() {
 
@@ -35,7 +35,6 @@ export default function Detail() {
     }
     const dateDay = data?.date?.split(',')[0]
     const dateTime = data?.date?.split(',')[1]
-    const wifidata = data?.type == 'wifi' && getWifiData(data.value)
 
     useEffect(() => {
         getOneRow(String(id))
@@ -48,62 +47,36 @@ export default function Detail() {
             {data ? (
                 <>
                     <View className='flex items-center mt-1 mb-4'>
-                        <View className=' bg-bg-2 aspect-square flex-row items-center justify-center rounded-full p-4 mb-4 h-[90px]'>
+                        <View className=' bg-bg-2 aspect-square flex-row items-center justify-center rounded-full p-4 mb-2 h-[90px]'>
                             <Image
                                 style={{ width: '100%', height: '100%' }}
                                 source={returnSource(data.type)}
                                 contentFit='contain'
                             />
                         </View>
+
                         <Text style={styles.title}>{data.titleName}</Text>
 
-                        <View className=' bg-blue  px-4 rounded-full'>
-                            <Text className='text-white text-xl'>{data.type}</Text>
+                        <View className=' bg-blue ' style={{ paddingHorizontal: 16, paddingBottom: 2, borderRadius: 20 }}>
+                            <Text style={{ color: '#fff', fontSize: 20 }}>{data.type}</Text>
                         </View>
 
                     </View>
-                    <View className='flex flex-row w-full items-center justify-between my-2'>
+                    <View className='flex flex-row w-full items-center justify-between '>
                         <Text className=' text-white'>{dateTime}</Text>
                         <Text className=' text-white'>{dateDay}</Text>
                     </View>
                     <View style={{ marginVertical: 10, gap: 5 }}>
 
-                        <ItemTitleAndValue
-                            title='Name'
-                            value={data.titleName ? data.titleName : data.value}
-                        />
+                        <Text className=' text-center  text-text-dark my-2' >Tap One to Copy</Text>
+
                         {
-                            data.type != 'wifi' &&
-                            <ItemTitleAndValue
-                                title='Value'
-                                value={data.value}
+                            data &&
+                            <Component
+                                type={data.type}
+                                data={data}
                             />
                         }
-
-                        {
-                            wifidata &&
-                            <>
-                                <ItemTitleAndValue
-                                    title='Password'
-                                    value={wifidata.password}
-                                />
-                                <ItemTitleAndValue
-                                    title='Security'
-                                    value={wifidata.security}
-                                />
-                                <ItemTitleAndValue
-                                    title='Hidden'
-                                    value={wifidata.hidden}
-                                />
-                            </>
-
-                        }
-
-                    </View>
-                    <View className='flex flex-row w-full items-center justify-center my-2'>
-                        <TouchableOpacity className='bg-blue  py-1 px-4 rounded-full my-1'>
-                            <Text className='text-white'>Go To Wifi Settings</Text>
-                        </TouchableOpacity>
 
                     </View>
 
@@ -142,12 +115,6 @@ export default function Detail() {
     )
 }
 
-function ItemTitleAndValue({ title, value }: { title: string, value: string }) {
-    return (
-        <Text className='text-text-dark text-[13px] font-semibold'>{title}   <Text className='text-white text-[16px]'>{value}</Text></Text>
-    )
-}
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -157,7 +124,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginVertical: 10,
         color: '#fafafa'
     }
 });

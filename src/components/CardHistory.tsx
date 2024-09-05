@@ -7,12 +7,7 @@ import { returnSource, shortenText } from '@/functions/functions'
 export default function HistoryCardCodes({ itemInfo }: { itemInfo: HistoryData }) {
 
     const time = itemInfo.date?.split(',')[0]
-    let title
-    if (itemInfo.titleName) {
-        title = shortenText(itemInfo.titleName)
-    } else {
-        title = itemInfo.value
-    }
+    let title = shortenText(itemInfo.titleName ? itemInfo.titleName : itemInfo.value, 20)
     const valueRecort = shortenText(itemInfo.value)
 
     return (

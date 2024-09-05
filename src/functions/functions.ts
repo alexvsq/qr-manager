@@ -1,4 +1,5 @@
 import { WifiData, ContactData, EmailData, SMSData } from "@/types/types";
+import * as Clipboard from "expo-clipboard";
 
 export function shortenText(text: string, maxLength = 30) {
   const short =
@@ -69,6 +70,15 @@ export const getSMSData = (value: string): SMSData => {
     message: match ? match[2].trim() : "",
   };
 };
+
+export const copyToClipboard = async (text: string) => {
+  try {
+    await Clipboard.setStringAsync(text);
+  } catch {
+    alert("Error");
+  }
+};
+
 /* 
 "wifi";
 "url";

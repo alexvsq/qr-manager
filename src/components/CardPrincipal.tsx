@@ -44,12 +44,12 @@ export default function CardPrincipal({ children, title }: Props) {
 
     return (
         <Animated.View className='bg-bg-2 w-full rounded-[20px] px-3 py-1 mb-5 overflow-hidden '>
-            <View className='my-2 px-2 flex flex-row items-center justify-between'>
+            <View className='py-2 px-2 flex flex-row items-center justify-between'>
+
                 <Text className='text-white text-base font-semibold'>{title}</Text>
-                <Pressable
-                    className='bg-bg-icon p-1 rounded-full'>
-                    <CrossBlue />
-                </Pressable>
+
+                <CrossBlue />
+
             </View>
             <View className='w-full h-[1px] bg-lines-dark'></View>
             <Animated.View style={heightAnimationStyle} >

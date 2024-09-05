@@ -79,12 +79,12 @@ export function IconCard({ source, title, func, func2, active }: PropsIconCard) 
 }
 const styles = StyleSheet.create({
     iconPressable: {
-        width: 50,
-        height: 50,
+        width: 45,
+        height: 45,
         borderWidth: 1,
         borderColor: '#3F3F3F',
         borderRadius: 100,
-        padding: 12,
-        marginBottom: 5
+        padding: 10,
+        marginBottom: 3
     }
 })

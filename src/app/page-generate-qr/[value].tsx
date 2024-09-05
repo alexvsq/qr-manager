@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet, Button, Text, TouchableOpacity } from 're
 import QRCode from 'react-native-qrcode-svg';
 import { useLocalSearchParams } from 'expo-router';
 import ModalPickColor from '@/components/modals/ModalPickColor'
-import { returnType } from '@/functions/validates'
+import { returnType } from '@/functions/orderData'
 import { Image } from 'expo-image';
 import { returnSource } from '@/functions/functions'
 import * as ImagePicker from 'expo-image-picker';

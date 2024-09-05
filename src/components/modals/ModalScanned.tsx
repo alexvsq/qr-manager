@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
 import { BarcodeScanningResult } from 'expo-camera';
-import { returnType } from '@/functions/validates'
+import { returnType } from '@/functions/orderData'
 import { Image } from 'expo-image';
 import { returnSource, shortenText } from '@/functions/functions'
 import { OpenLink } from '@/functions/Camera-Functions'
+import ComponentBtns from '@/app/page-codeHistory/components/Component'
+import { returnDataToSave } from '@/functions/orderData'
 
 type Props = {
     hideModal: () => void,
@@ -14,13 +16,9 @@ type Props = {
 export default function ModalComponent({ hideModal, dataQR, goToDetails }: Props) {
     const type = returnType(dataQR.raw ? dataQR.raw : dataQR.data)
     const valueRecort = shortenText(dataQR.raw ? dataQR.raw : dataQR.data)
+    const dataToSave = returnDataToSave(dataQR)
 
-    const onPressOpen = () => {
-        if (type == 'web') {
-            OpenLink(valueRecort)
-        }
-        hideModal()
-    }
+
     const onPressDetails = () => {
         goToDetails()
         hideModal()
@@ -45,14 +43,16 @@ export default function ModalComponent({ hideModal, dataQR, goToDetails }: Props
                     <View className='w-[150px] h-[1px] bg-lines-dark my-1'></View>
                 </View>
 
-                <Text style={styles.modalText}>{valueRecort}</Text>
-                <View style={{ gap: 8 }}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={onPressOpen}>
-                        <Text style={styles.textStyle}>Open</Text>
-                    </TouchableOpacity>
+                <View style={{ minWidth: 250, marginTop: 10 }}>
 
+                    <ComponentBtns
+                        type={type}
+                        data={dataToSave}
+                    />
+
+                </View>
+
+                <View >
                     <View className='flex-row gap-2 '>
                         <TouchableOpacity
                             style={styles.buttonClose}
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
     modalView: {
         margin: 20,
         backgroundColor: '#1b1b1b',
-        minWidth: 280,
+        maxWidth: '85%',
         borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 30,
         alignItems: 'center',
         shadowColor: '#3A86FF',
         shadowOffset: {
@@ -98,14 +98,14 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 20,
         paddingHorizontal: 12,
-        paddingVertical: 5,
+        paddingVertical: 4,
         elevation: 2,
-        backgroundColor: '#2196F3',
+        backgroundColor: '#3A86FF',
     },
     buttonClose: {
         borderRadius: 20,
         paddingHorizontal: 12,
-        paddingVertical: 5,
+        paddingVertical: 4,
         elevation: 2,
         backgroundColor: '#781515',
     },

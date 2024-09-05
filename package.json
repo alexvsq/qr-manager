@@ -31,7 +31,8 @@
     "react-native-gesture-handler": "~2.16.1",
     "expo-image-picker": "~15.0.7",
     "expo-file-system": "~17.0.1",
-    "expo-media-library": "~16.0.4"
+    "expo-media-library": "~16.0.4",
+    "expo-clipboard": "~6.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
