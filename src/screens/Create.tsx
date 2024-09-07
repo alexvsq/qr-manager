@@ -1,29 +1,91 @@
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated'
-import { RowCards, CardCodes } from '@/components/cards'
-
+import Animated, { FadeInDown, FadeInUp, SlideInRight } from 'react-native-reanimated';
+import { IconCard } from '@/components/cards'
+import HistoryCardCodes from '@/components/CardHistory';
+import { useState, useEffect } from 'react';
+import { FlashList } from "@shopify/flash-list";
+import { HistoryData } from '@/types/types'
+import { View, StyleSheet } from 'react-native'
+import { imgCards } from '@/utils/icons'
+import { router } from 'expo-router'
+import { getAllDataSqlCreates } from '@/functions/sql/create-qr'
 
 export function PrincipalCreate() {
 
+    const [cardRowsHistory, setCardRowsHistory] = useState<number>(8);
+
+    const goToCreate = (type: string) => {
+        router.push('/page-create-qr/' + type)
+    }
+
     return (
-        <Animated.View
-            entering={FadeInDown}
-        >
-            <RowCards />
-            <RowCards />
-            <RowCards />
+        <Animated.View entering={FadeInDown}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                {imgCards.map((item, index) => {
+                    if (index < cardRowsHistory) {
+                        return (
+                            <IconCard
+                                key={index}
+                                source={item.source}
+                                title={item.type}
+                                width={'22%'}
+                                func={() => goToCreate(item.type)}
+                            />
+                        );
+                    }
+                    return null;
+                })
+                }
+            </View>
         </Animated.View>
-    )
+    );
 }
+
+type itemCardHistory = {
+    item: HistoryData;
+    index: number;
+}
+
 export function SecondaryCreate() {
+
+    const [data, setData] = useState<HistoryData[]>([]);
+
+    const goToPageEditCreateQr = (value: string) => {
+        router.push('/page-generate-qr/' + value)
+    }
+
+    useEffect(() => {
+        getAllDataSqlCreates()
+            .then(res => {
+                console.log(res);
+                if (res) {
+                    setData(res)
+                }
+            }
+            )
+            .catch(err => {
+                console.log(err);
+            })
+    }, []);
+
     return (
-        <Animated.View
-            entering={FadeInUp}
-        >
-            <CardCodes />
-            <CardCodes />
-            <CardCodes />
-            <CardCodes />
-        </Animated.View>
+        <View className='flex-1'>
+            <FlashList
+                data={[...data].toReversed()}
+                renderItem={({ item, index }: itemCardHistory) => (
+                    <Animated.View
+                        entering={FadeInUp.delay(index * 90)}
+                    >
+                        <HistoryCardCodes
+                            itemInfo={item}
+                            pressFunc={() => goToPageEditCreateQr(item.value)}
+                        />
+                    </Animated.View>
+                )}
+                estimatedItemSize={200}
+                keyExtractor={(item) => item.id!.toString()}
+            />
+
+        </View>
     )
 }
 

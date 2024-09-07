@@ -31,3 +31,14 @@ export interface SMSData {
   phoneNumber: string;
   message: string;
 }
+
+export interface ContactData2 {
+  lastName: string;
+  firstName: string;
+  fullName: string;
+  organization: string;
+  title: string;
+  workPhone: string;
+  homePhone: string;
+  email: string;
+}

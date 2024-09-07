@@ -4,7 +4,12 @@ import { router } from 'expo-router'
 import { HistoryData } from '@/types/types'
 import { returnSource, shortenText } from '@/functions/functions'
 
-export default function HistoryCardCodes({ itemInfo }: { itemInfo: HistoryData }) {
+type PropsIconCard = {
+    itemInfo: HistoryData;
+    pressFunc?: () => void,
+}
+
+export default function HistoryCardCodes({ itemInfo, pressFunc }: PropsIconCard) {
 
     const time = itemInfo.date?.split(',')[0]
     let title = shortenText(itemInfo.titleName ? itemInfo.titleName : itemInfo.value, 20)
@@ -14,7 +19,7 @@ export default function HistoryCardCodes({ itemInfo }: { itemInfo: HistoryData }
         <>
             <Pressable
                 style={({ pressed }) => [[{ marginVertical: 6 }], [pressed && { backgroundColor: '#EFEFEF', borderRadius: 10 }]]}
-                onPress={() => router.push('/page-codeHistory/' + itemInfo.id)}
+                onPress={pressFunc}
             >
                 <View className='flex flex-row justify-between items-center px-1 pt-2 pb-1 '>
                     <View className='flex flex-row  items-center flex-1'>

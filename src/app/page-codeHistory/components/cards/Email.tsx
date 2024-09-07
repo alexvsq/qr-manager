@@ -19,10 +19,6 @@ export default function Email({ data }: { data: HistoryData }) {
     return (
         <View>
             <ItemTitleAndValue
-                title='Name'
-                value={data.titleName ? data.titleName : data.value}
-            />
-            <ItemTitleAndValue
                 title='To'
                 value={emaildata.to}
             />

@@ -51,10 +51,10 @@ export default function CardPrincipal({ children, title }: Props) {
                 <CrossBlue />
 
             </View>
-            <View className='w-full h-[1px] bg-lines-dark'></View>
+            <View className='w-full h-[1px] bg-lines-dark mb-3'></View>
             <Animated.View style={heightAnimationStyle} >
                 <Animated.View
-                    className='absolute top-0 w-full'
+                    className='absolute top-0 w-full '
                     ref={listRef}
                     onLayout={handleLayout}
                 >

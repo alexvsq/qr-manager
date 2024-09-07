@@ -69,6 +69,21 @@ export default function Layout() {
                                 //headerTintColor: '#3A86FF',
                             }}
                         />
+
+                        <Stack.Screen
+                            name="page-create-qr/[type]" // Nombre de la ruta para la segunda pantalla
+                            options={{
+                                headerShown: true,
+                                headerStyle: {
+                                    backgroundColor: '#272727',
+                                },
+                                headerTitleAlign: 'center',
+                                headerTitle: "Create Qr", // Título específico para esta pantalla
+                                headerBackTitleVisible: false,
+                                headerTintColor: '#fff',
+                                //headerTintColor: '#3A86FF',
+                            }}
+                        />
                     </Stack>
 
                 </View>

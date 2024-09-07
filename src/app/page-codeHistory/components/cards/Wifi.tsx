@@ -20,6 +20,10 @@ export default function wifi({ data }: { data: HistoryData }) {
     return (
         <View>
             <ItemTitleAndValue
+                title='Name'
+                value={wifidata.name}
+            />
+            <ItemTitleAndValue
                 title='Password'
                 value={wifidata.password}
             />

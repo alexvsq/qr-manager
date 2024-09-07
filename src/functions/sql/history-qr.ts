@@ -3,12 +3,13 @@ import { HistoryData } from "@/types/types";
 
 export async function saveDataQr(dataScanned: HistoryData) {
   try {
-    const db = initDatabase();
+    const db = initDatabaseQrHistory();
     const { value, type, typeCode, titleName, date } = dataScanned;
+    const typeCodeString = typeCode ? typeCode : "";
     const data = value;
     const result = await db.runAsync(
       "INSERT INTO qrhistory (date,value, type, typeCode, titleName) VALUES (?, ?, ?, ?, ?);",
-      [date, data, type, typeCode, titleName!]
+      [date, data, type, typeCodeString, titleName!]
     );
     console.log("saved! , id: ", result.lastInsertRowId);
     return result.lastInsertRowId;
@@ -18,7 +19,7 @@ export async function saveDataQr(dataScanned: HistoryData) {
 }
 export async function getOneRow(id: string): Promise<HistoryData | null> {
   try {
-    const db = initDatabase();
+    const db = initDatabaseQrHistory();
     const row = await db.getFirstAsync<HistoryData | null>(
       "SELECT * FROM qrhistory WHERE id = ?",
       [id]
@@ -37,7 +38,7 @@ export async function getOneRow(id: string): Promise<HistoryData | null> {
 export async function deleteOneRow(id: number) {
   try {
     const idString = String(id);
-    const db = initDatabase();
+    const db = initDatabaseQrHistory();
     const res = await db.runAsync(`delete from qrhistory where id = ?`, [
       idString,
     ]);
@@ -47,9 +48,9 @@ export async function deleteOneRow(id: number) {
   }
 }
 
-export async function getAllDataSql() {
+export async function getAllDataSqlHistory() {
   try {
-    const db = initDatabase();
+    const db = initDatabaseQrHistory();
     const result = await db.getAllAsync<HistoryData>("SELECT * FROM qrhistory");
     return result;
   } catch (error) {
@@ -59,7 +60,7 @@ export async function getAllDataSql() {
 
 export async function deleteAllData() {
   try {
-    const db = initDatabase();
+    const db = initDatabaseQrHistory();
     const res = await db.runAsync(`drop table qrhistory`);
     console.log(res);
   } catch (error) {
@@ -67,7 +68,7 @@ export async function deleteAllData() {
   }
 }
 
-function initDatabase() {
+function initDatabaseQrHistory() {
   const db = SQLite.openDatabaseSync("database.db");
   db.execSync(`
     PRAGMA journal_mode = WAL;

@@ -1,11 +1,10 @@
 import { View, Text, StyleSheet, Alert, TouchableOpacity, ScrollView, TextInput } from 'react-native'
-import { useLocalSearchParams } from 'expo-router'
-import { getOneRow, deleteOneRow } from '@/functions/sql-functions'
+import { useLocalSearchParams, router } from 'expo-router'
+import { getOneRow, deleteOneRow } from '@/functions/sql/history-qr'
 import { useEffect, useState } from 'react'
 import { HistoryData } from '@/types/types'
 import { Image } from 'expo-image';
 import { returnSource } from '@/functions/functions'
-import { router } from 'expo-router'
 import Component from './components/Component'
 
 export default function Detail() {
@@ -38,7 +37,11 @@ export default function Detail() {
 
     useEffect(() => {
         getOneRow(String(id))
-            .then(res => setData(res))
+            .then(res => {
+                console.log(res);
+                setData(res)
+            }
+            )
 
     }, [])
 

@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { BarcodeScanningResult } from 'expo-camera';
 import { returnType } from '@/functions/orderData'
 import { Image } from 'expo-image';
-import { returnSource, shortenText } from '@/functions/functions'
-import { OpenLink } from '@/functions/Camera-Functions'
+import { returnSource } from '@/functions/functions'
 import ComponentBtns from '@/app/page-codeHistory/components/Component'
 import { returnDataToSave } from '@/functions/orderData'
 
@@ -15,8 +14,7 @@ type Props = {
 
 export default function ModalComponent({ hideModal, dataQR, goToDetails }: Props) {
     const type = returnType(dataQR.raw ? dataQR.raw : dataQR.data)
-    const valueRecort = shortenText(dataQR.raw ? dataQR.raw : dataQR.data)
-    const dataToSave = returnDataToSave(dataQR)
+    const dataToSave = returnDataToSave(dataQR.raw ? dataQR.raw : dataQR.data)
 
 
     const onPressDetails = () => {

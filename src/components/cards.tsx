@@ -1,63 +1,19 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Image } from 'expo-image';
-
+import { DimensionValue } from 'react-native'
 
 type PropsIconCard = {
     source: string,
     title: string,
     func?: () => void,
     func2?: () => void,
-    active?: boolean
+    active?: boolean,
+    width?: DimensionValue | undefined
 }
 
-export function RowCards() {
+export function IconCard({ source, title, func, func2, active, width }: PropsIconCard) {
     return (
-        <View className='flex flex-row justify-between px-2 my-3'>
-
-            <IconCard
-                source={require('@assets/icons/icons-png/contact.png')}
-                title='Contact'
-            />
-            <IconCard
-                source={require('@assets/icons/icons-png/text.png')}
-                title='Text'
-            />
-            <IconCard
-                source={require('@assets/icons/icons-png/web.png')}
-                title='Web'
-            />
-            <IconCard
-                source={require('@assets/icons/icons-png/contact.png')}
-                title='Contact'
-            />
-
-        </View>
-    )
-}
-export function CardCodes() {
-    return (
-        <View className=' my-2'>
-            <View className='flex flex-row justify-between items-center px-2'>
-                <View>
-                    <Text className='text-black text-base font-semibold'>Hola</Text>
-                    <Text className='text-text-dark text-[12px]'>Text</Text>
-                </View>
-
-                <Image
-                    className='w-[20px] h-[20px]'
-                    contentFit='contain'
-                    source={require('@assets/icons/arrow-blue.png')}
-                />
-
-            </View>
-            <View className='w-full h-[1px] bg-lines-light mt-2'></View>
-        </View>
-    )
-}
-
-export function IconCard({ source, title, func, func2, active }: PropsIconCard) {
-    return (
-        <View className=' flex  justify-center items-center'>
+        <View className=' flex  justify-center items-center' style={{ marginBottom: 14, width: width }}>
             <Pressable
                 onPress={func}
                 onLongPress={func2}
@@ -73,7 +29,7 @@ export function IconCard({ source, title, func, func2, active }: PropsIconCard) 
                 />
             </Pressable>
 
-            <Text className='text-[#fafafa] text-sm font-semibold text-[13px]'>{title}</Text>
+            <Text className='text-[#fafafa] text-sm font-semibold text-[13px] capitalize'>{title}</Text>
         </View>
     )
 }

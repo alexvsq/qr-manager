@@ -1,7 +1,6 @@
-import { BarcodeScanningResult } from "expo-camera";
 import {
   getWifiData,
-  getContactData,
+  getContactData2,
   getEmailData,
   getNumberData,
   getSMSData,
@@ -9,130 +8,117 @@ import {
 import { extractNameFromUrl } from "@/functions/functions";
 import { HistoryData } from "@/types/types";
 
-export const returnDataToSave = (data: BarcodeScanningResult): HistoryData => {
-  console.log(data);
-  const value = data.raw ? data.raw : data.data;
+export const returnDataToSave = (value: string): HistoryData => {
   const type = returnType(value);
 
-  if (type === "web") return orderDataWeb(data);
-  if (type === "wifi") return orderDataWifi(data);
-  if (type === "url") return orderDataUrl(data);
-  if (type === "text") return orderDataText(data);
-  if (type === "contact") return orderDataContact(data);
-  if (type === "email") return orderDataEmail(data);
-  if (type === "number") return orderDataNumber(data);
-  if (type === "sms") return orderDataSms(data);
+  if (type === "web") return orderDataWeb(value);
+  if (type === "wifi") return orderDataWifi(value);
+  if (type === "url") return orderDataUrl(value);
+  if (type === "text") return orderDataText(value);
+  if (type === "contact") return orderDataContact(value);
+  if (type === "email") return orderDataEmail(value);
+  if (type === "number") return orderDataNumber(value);
+  if (type === "sms") return orderDataSms(value);
 
-  return orderDataText(data);
+  return orderDataText(value);
 };
 
-export const orderDataWifi = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
-
+export const orderDataWifi = (value: string): HistoryData => {
   const wifiData = getWifiData(value);
 
   const dataToSave = {
     value: value,
     type: "wifi",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName: wifiData.name,
   };
   return dataToSave;
 };
 
-export const orderDataUrl = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
-
+export const orderDataUrl = (value: string): HistoryData => {
   const titleName = extractNameFromUrl(value);
   const dataToSave = {
     value: value,
     type: "url",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName,
   };
   return dataToSave;
 };
 
-export const orderDataWeb = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
-
+export const orderDataWeb = (value: string): HistoryData => {
   const titleName = extractNameFromUrl(value);
   const dataToSave = {
     value: value,
     type: "web",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName,
   };
   return dataToSave;
 };
 
-export const orderDataContact = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
-  const contactData = getContactData(value);
+export const orderDataContact = (value: string): HistoryData => {
+  const contactData = getContactData2(value);
   const titleName =
     contactData.fullName.length > 0 ? contactData.fullName : value;
 
   const dataToSave = {
     value: value,
     type: "contact",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName,
   };
   return dataToSave;
 };
 
-export const orderDataSms = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
+export const orderDataSms = (value: string): HistoryData => {
   const smsData = getSMSData(value);
   const titleName = smsData.message.length > 0 ? smsData.message : value;
   const dataToSave = {
     value: value,
     type: "sms",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName,
   };
   return dataToSave;
 };
 
-export const orderDataEmail = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
+export const orderDataEmail = (value: string): HistoryData => {
   const emailData = getEmailData(value);
   const titleName = emailData.to.length > 0 ? emailData.to : value;
   const dataToSave = {
     value: value,
     type: "email",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName,
   };
   return dataToSave;
 };
 
-export const orderDataNumber = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
+export const orderDataNumber = (value: string): HistoryData => {
   const numberData = getNumberData(value);
   const titleName = numberData.length > 0 ? numberData : value;
   const dataToSave = {
     value: value,
     type: "number",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName,
   };
   return dataToSave;
 };
 
-export const orderDataText = (info: BarcodeScanningResult): HistoryData => {
-  const value = info.raw ? info.raw : info.data;
+export const orderDataText = (value: string): HistoryData => {
   const dataToSave = {
     value: value,
     type: "text",
-    typeCode: info.type,
+    typeCode: "256",
     date: new Date().toLocaleString(),
     titleName: value,
   };

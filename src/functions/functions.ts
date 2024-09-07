@@ -1,5 +1,12 @@
-import { WifiData, ContactData, EmailData, SMSData } from "@/types/types";
+import {
+  WifiData,
+  ContactData,
+  EmailData,
+  SMSData,
+  ContactData2,
+} from "@/types/types";
 import * as Clipboard from "expo-clipboard";
+import { imgCards } from "@/utils/icons";
 
 export function shortenText(text: string, maxLength = 30) {
   const short =
@@ -15,7 +22,7 @@ export function extractNameFromUrl(url: string): string {
 }
 
 export const returnSource = (type: string) => {
-  const source = imgCards.find((item) => item.title === type);
+  const source = imgCards.find((item) => item.type === type);
   if (!source) return require("@assets/icons/icons-png/text.png");
   return source?.source;
 };
@@ -47,6 +54,51 @@ export const getContactData = (value: string): ContactData => {
   };
 };
 
+export function getContactData2(rawText: string): ContactData2 {
+  const lines = rawText.split("\n");
+  const data: ContactData2 = {
+    lastName: "",
+    firstName: "",
+    fullName: "",
+    organization: "",
+    title: "",
+    workPhone: "",
+    homePhone: "",
+    email: "",
+  };
+
+  for (const line of lines) {
+    const [key, value] = line.split(":");
+    switch (key) {
+      case "N":
+        const [lastName, firstName] = value.split(";");
+        data.lastName = lastName || "";
+        data.firstName = firstName || "";
+        break;
+      case "FN":
+        data.fullName = value || "";
+        break;
+      case "ORG":
+        data.organization = value || "";
+        break;
+      case "TITLE":
+        data.title = value || "";
+        break;
+      case "TEL;type=WORK":
+        data.workPhone = value || "";
+        break;
+      case "TEL;type=HOME":
+        data.homePhone = value || "";
+        break;
+      case "EMAIL":
+        data.email = value || "";
+        break;
+    }
+  }
+
+  return data;
+}
+
 export const getEmailData = (value: string): EmailData => {
   const toMatch = value.match(/TO:([^;]+)/);
   const subjectMatch = value.match(/SUB:([^;]+)/);
@@ -59,7 +111,7 @@ export const getEmailData = (value: string): EmailData => {
   };
 };
 export const getNumberData = (value: string): string => {
-  const phoneMatch = value.match(/TEL:(\d+)/);
+  const phoneMatch = value.match(/TEL:([+\d*#]+)/);
   return phoneMatch ? phoneMatch[1].trim() : "";
 };
 
@@ -78,51 +130,3 @@ export const copyToClipboard = async (text: string) => {
     alert("Error");
   }
 };
-
-/* 
-"wifi";
-"url";
-"web";
-"contact";
-"number";
-"email";
-"sms";
-*/
-const imgCards = [
-  {
-    source: require("@assets/icons/icons-png/wifi.png"),
-    title: "wifi",
-  },
-  {
-    source: require("@assets/icons/icons-png/url.png"),
-    title: "url",
-  },
-  {
-    source: require("@assets/icons/icons-png/web.png"),
-    title: "web",
-  },
-  {
-    source: require("@assets/icons/icons-png/contact.png"),
-    title: "contact",
-  },
-  {
-    source: require("@assets/icons/icons-png/number.png"),
-    title: "number",
-  },
-  {
-    source: require("@assets/icons/icons-png/email.png"),
-    title: "email",
-  },
-  {
-    source: require("@assets/icons/icons-png/sms.png"),
-    title: "sms",
-  },
-  {
-    source: require("@assets/icons/icons-png/text.png"),
-    title: "text",
-  },
-  {
-    source: require("@assets/icons/icons-png/text.png"),
-    title: "default",
-  },
-];
