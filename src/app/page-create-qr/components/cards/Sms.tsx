@@ -27,8 +27,8 @@ export default function Sms() {
             return
         }
         //"SMSTO:924165577:Hola cómo estás "
-        const dataSms = encodeURIComponent(`SMSTO:${valueData.number}:${valueData.message}`)
-        router.push('/page-generate-qr/' + dataSms)
+        const dataSms = `SMSTO:${valueData.number}:${valueData.message}`
+        router.push('/page-generate-qr/' + encodeURIComponent(dataSms))
         await validateANDSaveCreateQR(dataSms)
     }
 

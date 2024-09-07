@@ -20,7 +20,7 @@ export async function validateANDSave(data: BarcodeScanningResult) {
 
 export async function validateANDSaveCreateQR(value: string) {
   try {
-    console.log(value);
+    console.log("validateANDSaveCreateQR", value);
 
     const dataToSave = returnDataToSave(value);
 

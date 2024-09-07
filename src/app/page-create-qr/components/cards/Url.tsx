@@ -25,8 +25,8 @@ export default function Web() {
             )
             return
         }
-        const dataWeb = encodeURIComponent(valueData.web)
-        router.push('/page-generate-qr/' + dataWeb)
+        const dataWeb = valueData.web
+        router.push('/page-generate-qr/' + encodeURIComponent(dataWeb))
         await validateANDSaveCreateQR(dataWeb)
     }
 

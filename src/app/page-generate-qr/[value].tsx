@@ -44,8 +44,6 @@ export default function Index() {
         }
     };
     //console.log(qrRef.current)
-
-
     return (
         <ScrollView style={styles.container}>
 

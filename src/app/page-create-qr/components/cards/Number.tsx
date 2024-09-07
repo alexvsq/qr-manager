@@ -26,8 +26,8 @@ export default function Number() {
             return
         }
         //"TEL:9214165577"
-        const dataNumber = encodeURIComponent(`TEL:${valueData.number}`)
-        router.push('/page-generate-qr/' + dataNumber)
+        const dataNumber = `TEL:${valueData.number}`
+        router.push('/page-generate-qr/' + encodeURIComponent(dataNumber))
         await validateANDSaveCreateQR(dataNumber)
     }
 

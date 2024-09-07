@@ -28,7 +28,7 @@ export default function wifi() {
             return
         }
         const wifiData = `WIFI:S:${valueWifi.name};T:${valueWifi.security};P:${valueWifi.password};H:false;;`
-        router.push('/page-generate-qr/' + wifiData)
+        router.push('/page-generate-qr/' + encodeURIComponent(wifiData))
         await validateANDSaveCreateQR(wifiData)
     }
 

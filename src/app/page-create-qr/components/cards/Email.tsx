@@ -28,8 +28,8 @@ export default function Email() {
             return
         }
         //"MATMSG:TO:alejandro@gmail.com;SUB:Hola;BODY:Esto es una prueba;"
-        const dataEmail = encodeURIComponent(`MATMSG:TO:${valueData.email};SUB:${valueData.subject};BODY:${valueData.message};`)
-        router.push('/page-generate-qr/' + dataEmail)
+        const dataEmail = `MATMSG:TO:${valueData.email};SUB:${valueData.subject};BODY:${valueData.message};`
+        router.push('/page-generate-qr/' + encodeURIComponent(dataEmail))
         await validateANDSaveCreateQR(dataEmail)
     }
 
