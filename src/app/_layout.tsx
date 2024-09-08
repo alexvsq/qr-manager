@@ -8,7 +8,7 @@ import { Image } from 'expo-image';
 
 export default function Layout() {
     const os = Platform.OS;
-    if (os === "android") NavigationBar.setBackgroundColorAsync("transparent"); // 
+    if (os === "android") NavigationBar.setBackgroundColorAsync("#1b1b1b"); // background color navigation bar
 
     return (
         <>

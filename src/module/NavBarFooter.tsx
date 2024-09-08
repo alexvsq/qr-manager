@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, Platform } from 'react-native'
+import { View, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import { IconCreate, IconHistory, IconScanner, IconSettings } from '@assets/icons/icons-navbar/icons'
 import { useContextData } from '@/contexts/context'
@@ -29,18 +29,14 @@ export default function footeNavbar() {
 
     const insets = useSafeAreaInsets(); //
 
-    const isAndroid = Platform.OS === 'android';
-
     return (
 
         <View
             style={[
-                { marginBottom: insets.bottom },
-                isAndroid && { paddingBottom: 5 }
-            ]}
-            className='absolute bottom-0 w-full flex items-center'
+                { marginBottom: insets.bottom }]}
+            className='w-full bg-white'
         >
-            <View className='bg-bg-2 py-[7px] px-2  rounded-full'>
+            <View className='bg-bg-1 py-[7px] px-2  rounded-t-[20px]'>
                 <View style={styles.containerButtons}>
                     {
                         screens.map((item, index) => {
@@ -69,8 +65,8 @@ export default function footeNavbar() {
 const styles = StyleSheet.create({
     containerButtons: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        gap: 30
+        paddingHorizontal: 20
     },
 })
