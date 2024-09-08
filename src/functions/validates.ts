@@ -6,11 +6,10 @@ import { returnDataToSave } from "@/functions/orderData";
 export async function validateANDSave(data: BarcodeScanningResult) {
   if (!data.data && !data.raw) return;
   try {
-    console.log(data);
-    const value = data.data ? data.data : data.raw;
+    const value = data.raw ? data.raw : data.data;
 
     const dataToSave = returnDataToSave(value!);
-
+    console.log(dataToSave);
     const resultId = await saveDataQr(dataToSave);
     if (resultId) return resultId;
   } catch (error) {
