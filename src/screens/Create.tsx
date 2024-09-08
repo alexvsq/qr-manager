@@ -7,11 +7,11 @@ import { HistoryData } from '@/types/types'
 import { View, StyleSheet } from 'react-native'
 import { imgCards } from '@/utils/icons'
 import { router } from 'expo-router'
-import { getAllDataSqlCreates } from '@/functions/sql/create-qr'
+import { useContextData } from '@/contexts/context'
 
 export function PrincipalCreate() {
 
-    const [cardRowsHistory, setCardRowsHistory] = useState<number>(8);
+    const { numsCardsPrimaryRows } = useContextData()
 
     const goToCreate = (type: string) => {
         router.push('/page-create-qr/' + type)
@@ -21,7 +21,7 @@ export function PrincipalCreate() {
         <Animated.View entering={FadeInDown}>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 {imgCards.map((item, index) => {
-                    if (index < cardRowsHistory) {
+                    if (index < numsCardsPrimaryRows) {
                         return (
                             <IconCard
                                 key={index}
@@ -46,34 +46,23 @@ type itemCardHistory = {
 }
 
 export function SecondaryCreate() {
-
-    const [data, setData] = useState<HistoryData[]>([]);
+    const { listCreates, setListCreates } = useContextData()
 
     const goToPageEditCreateQr = (value: string) => {
         router.push('/page-generate-qr/' + value)
     }
 
     useEffect(() => {
-        getAllDataSqlCreates()
-            .then(res => {
-                console.log(res);
-                if (res) {
-                    setData(res)
-                }
-            }
-            )
-            .catch(err => {
-                console.log(err);
-            })
+
     }, []);
 
     return (
         <View className='flex-1'>
             <FlashList
-                data={[...data].toReversed()}
+                data={[...listCreates].toReversed()}
                 renderItem={({ item, index }: itemCardHistory) => (
                     <Animated.View
-                        entering={FadeInUp.delay(index * 90)}
+                        entering={FadeInUp.delay(index * 80)}
                     >
                         <HistoryCardCodes
                             itemInfo={item}

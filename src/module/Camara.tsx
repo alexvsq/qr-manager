@@ -5,13 +5,15 @@ import { useContextData } from '@/contexts/context'
 import ModalScanned from '@/components/modals/ModalScanned'
 import { validateANDSave } from '@/functions/validates'
 import { router } from 'expo-router'
+import { HistoryData } from '@/types/types'
 
 export default function Camara() {
     const { torch } = useContextData()
     const [permission, requestPermission] = useCameraPermissions();
     const [modalVisible, setModalVisible] = useState(false);
     const [dataQr, setDataQr] = useState<BarcodeScanningResult>();
-    const [idDetails, setIdDetails] = useState<string>('')
+    const [idDetails, setIdDetails] = useState<HistoryData | null>()
+    const { listHistory, setListHistory } = useContextData()
 
     useEffect(() => {
         requestPermission()
@@ -19,34 +21,26 @@ export default function Camara() {
 
     const hideModal = () => setModalVisible(prev => !prev)
 
-    const onBarcodeScanned = async (data: BarcodeScanningResult) => {
+    const saveCodeScanned = async (data: BarcodeScanningResult) => {
         if (modalVisible) return;
 
         setDataQr(data);
         setModalVisible(true);
-
-        const id = await validateAndSaveData(data);
-        if (id) {
-            setIdDetails(String(id));
-        }
-    };
-
-    const validateAndSaveData = async (data: BarcodeScanningResult) => {
-        if (!data) return null;
         try {
-            const id = await validateANDSave(data);
-            console.log('Data saved with ID:', id);
-            return id;
+            const newRow = await validateANDSave(data);
+            if (newRow) {
+                setIdDetails(newRow);
+                setListHistory([...listHistory, newRow]);
+            }
         } catch (error) {
-            console.error('Error saving data:', error);
-            return null;
+            console.log('saveCodeScanned', error);
         }
     };
 
     const goToPageDetails = () => {
         if (!idDetails) return;
         router.push(`/page-codeHistory/${idDetails}`);
-        setIdDetails('')
+        setIdDetails(null)
     };
 
     return (
@@ -68,7 +62,7 @@ export default function Camara() {
                 barcodeScannerSettings={{
                     barcodeTypes: ["qr"],
                 }}
-                onBarcodeScanned={(data) => onBarcodeScanned(data)}
+                onBarcodeScanned={(data) => saveCodeScanned(data)}
                 ratio='1:1'
             />
 

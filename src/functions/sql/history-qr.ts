@@ -1,7 +1,9 @@
 import * as SQLite from "expo-sqlite";
 import { HistoryData } from "@/types/types";
 
-export async function saveDataQr(dataScanned: HistoryData) {
+export async function saveDataQr(
+  dataScanned: HistoryData
+): Promise<HistoryData | null> {
   try {
     const db = initDatabaseQrHistory();
     const { value, type, typeCode, titleName, date } = dataScanned;
@@ -12,9 +14,19 @@ export async function saveDataQr(dataScanned: HistoryData) {
       [date, data, type, typeCodeString, titleName!]
     );
     console.log("saved! , id: ", result.lastInsertRowId);
-    return result.lastInsertRowId;
+
+    const newRow = {
+      id: result.lastInsertRowId,
+      date: date,
+      value: data,
+      type: type,
+      typeCode: typeCodeString,
+      titleName: titleName!,
+    };
+    return newRow;
   } catch (error) {
     console.log("saveDataQr", error);
+    return null;
   }
 }
 export async function getOneRow(id: string): Promise<HistoryData | null> {

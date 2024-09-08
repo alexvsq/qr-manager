@@ -6,11 +6,13 @@ import { HistoryData } from '@/types/types'
 import { Image } from 'expo-image';
 import { returnSource } from '@/functions/functions'
 import Component from './components/Component'
+import { useContextData } from '@/contexts/context'
 
 export default function Detail() {
 
     const { id } = useLocalSearchParams();
     const [data, setData] = useState<HistoryData | null>()
+    const { listHistory, setListHistory } = useContextData()
 
     const goToCreateQr = () => router.push('/page-generate-qr/' + encodeURIComponent(data!.value))
 
@@ -24,10 +26,7 @@ export default function Detail() {
             },
             {
                 text: 'Delete',
-                onPress: async () => {
-                    await deleteOneRow(data!.id!)
-                    router.back()
-                },
+                onPress: async () => await deleteWithId(),
                 style: 'destructive'
             }]
         )
@@ -35,14 +34,24 @@ export default function Detail() {
     const dateDay = data?.date?.split(',')[0]
     const dateTime = data?.date?.split(',')[1]
 
+    async function deleteWithId() {
+        try {
+            if (!data) return;
+            const newListHistory = listHistory.filter((x: HistoryData) => x.id !== data.id)
+            setListHistory(newListHistory)
+            console.log(newListHistory);
+            await deleteOneRow(data.id!)
+        } catch (error) {
+            console.log('error', error)
+        }
+        router.back()
+    }
+
     useEffect(() => {
         getOneRow(String(id))
             .then(res => {
-                console.log(res);
                 setData(res)
-            }
-            )
-
+            })
     }, [])
 
     return (

@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, TouchableOpacity } from 'react-native'
 import Animated, {
     useAnimatedStyle,
     measure,
@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { CrossBlue } from '@assets/icons/icons-svg'
 import { useCallback, } from 'react';
+import { useContextData } from '@/contexts/context'
 
 type Props = {
     children: React.ReactNode,
@@ -18,6 +19,7 @@ type Props = {
 
 export default function CardPrincipal({ children, title }: Props) {
 
+    const { numsCardsPrimaryRows, setNumsCardsPrimaryRows, screen } = useContextData()
     const listRef = useAnimatedRef<Animated.View>()
     const heightValue = useSharedValue(0)
 
@@ -40,18 +42,31 @@ export default function CardPrincipal({ children, title }: Props) {
         })();
     }, [listRef]);
 
+    const pressCross = () => {
+        if (numsCardsPrimaryRows >= 8) {
+            setNumsCardsPrimaryRows(0)
+        } else {
+            setNumsCardsPrimaryRows((prev: number) => prev + 4)
+        }
 
+    }
 
     return (
-        <Animated.View className='bg-bg-2 w-full rounded-[20px] px-3 py-1 mb-5 overflow-hidden '>
+        <Animated.View className='bg-bg-2 w-full rounded-[20px] px-3 py-1 mb-5 overflow-hidden border-lines-dark border-[1px]'>
             <View className='py-2 px-2 flex flex-row items-center justify-between'>
 
                 <Text className='text-white text-base font-semibold'>{title}</Text>
 
-                <CrossBlue />
+                <TouchableOpacity onPress={pressCross}>
+                    <CrossBlue />
+                </TouchableOpacity>
 
             </View>
-            <View className='w-full h-[1px] bg-lines-dark mb-3'></View>
+            {
+                numsCardsPrimaryRows > 0 || screen == 'scanner'
+                    ? <View className='w-full h-[1px] bg-lines-dark mb-3'></View>
+                    : null
+            }
             <Animated.View style={heightAnimationStyle} >
                 <Animated.View
                     className='absolute top-0 w-full '

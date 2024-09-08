@@ -6,7 +6,7 @@ import { imgCardsCamera } from '@/utils/icons'
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
 export function PrincipalScanner() {
-    const { torch, setTorch } = useContextData()
+    const { torch, setTorch, numsCardsPrimaryRows } = useContextData()
 
     const toggleTorch = () => {
         setTorch(!torch)
@@ -18,6 +18,7 @@ export function PrincipalScanner() {
                 {
                     imgCardsCamera.map((item, index) => {
 
+
                         return (
                             <IconCard
                                 key={index}
@@ -25,7 +26,8 @@ export function PrincipalScanner() {
                                 title={item.type}
                                 func={item.type == 'flash' ? toggleTorch : undefined}
                             />
-                        );
+                        )
+
                     })
                 }
             </View>

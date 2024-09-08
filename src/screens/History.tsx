@@ -1,19 +1,17 @@
 import Animated, { FadeInDown, FadeInUp, SlideInRight } from 'react-native-reanimated';
 import { IconCard } from '@/components/cards'
 import HistoryCardCodes from '@/components/CardHistory';
-import { getAllDataSqlHistory } from '@/functions/sql/history-qr';
 import { useState, useEffect } from 'react';
 import { FlashList } from "@shopify/flash-list";
 import { HistoryData } from '@/types/types'
 import { View, StyleSheet } from 'react-native'
 import { imgCards } from '@/utils/icons'
 import { router } from 'expo-router'
+import { useContextData } from '@/contexts/context';
 
 export function PrincipalHistory() {
 
-    const [cardRowsHistory, setCardRowsHistory] = useState<number>(4);
-
-
+    const { numsCardsPrimaryRows } = useContextData()
 
     return (
         <View>
@@ -21,7 +19,7 @@ export function PrincipalHistory() {
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 {
                     imgCards.map((item, index) => {
-                        if (index < cardRowsHistory) {
+                        if (index < numsCardsPrimaryRows) {
                             return (
                                 <IconCard
                                     key={index}
@@ -45,23 +43,9 @@ type itemCardHistory = {
 }
 
 export function SecondaryHistory() {
-    const [data, setData] = useState<HistoryData[]>([]);
+    const { listHistory, setListHistory } = useContextData()
 
-    async function getDataSql2() {
-        try {
-            const result = await getAllDataSqlHistory();
-            if (result) {
-                setData(result)
-            }
 
-        } catch (error) {
-            console.log("getDataSql2", error);
-        }
-    }
-
-    useEffect(() => {
-        getDataSql2();
-    }, []);
 
     const goToPageDetails = (id: number) => {
         router.push(`/page-codeHistory/${id}`)
@@ -72,10 +56,10 @@ export function SecondaryHistory() {
             className='flex-1'
         >
             <FlashList
-                data={[...data].toReversed()}
+                data={[...listHistory].toReversed()}
                 renderItem={({ item, index }: itemCardHistory) => (
                     <Animated.View
-                        entering={FadeInUp.delay(index * 90)}
+                        entering={FadeInUp.delay(index * 80)}
                     >
                         <HistoryCardCodes
                             itemInfo={item}
