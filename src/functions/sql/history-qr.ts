@@ -54,7 +54,7 @@ export async function getAllDataSqlHistory() {
     const result = await db.getAllAsync<HistoryData>("SELECT * FROM qrhistory");
     return result;
   } catch (error) {
-    console.error("getDataSql", error);
+    console.error("getAllDataSqlHistory", error);
   }
 }
 
