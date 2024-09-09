@@ -1,12 +1,12 @@
-import * as SQLite from "expo-sqlite";
 import { HistoryData } from "@/types/types";
+import { database } from "@/functions/sql/openDatabase";
 
 export async function saveCreateQrHistory(data: HistoryData) {
   try {
-    const db = initDatabaseCreateHistory();
+    initDatabaseCreateHistory();
     const { value, type, typeCode, titleName, date } = data;
 
-    const result = await db.runAsync(
+    const result = await database.runAsync(
       "INSERT INTO createQrHistory (date,value, type, typeCode ,titleName) VALUES (?, ?, ?,?, ?);",
       [date, value, type, typeCode, titleName!]
     );
@@ -20,8 +20,8 @@ export async function saveCreateQrHistory(data: HistoryData) {
 
 export async function getAllDataSqlCreates() {
   try {
-    const db = initDatabaseCreateHistory();
-    const result = await db.getAllAsync<HistoryData>(
+    initDatabaseCreateHistory();
+    const result = await database.getAllAsync<HistoryData>(
       "SELECT * FROM createQrHistory"
     );
     return result;
@@ -31,8 +31,8 @@ export async function getAllDataSqlCreates() {
 }
 
 function initDatabaseCreateHistory() {
-  const db = SQLite.openDatabaseSync("database.db");
-  db.execSync(`
+  try {
+    database.execSync(`
       PRAGMA journal_mode = WAL;
       CREATE TABLE IF NOT EXISTS createQrHistory (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,6 +42,7 @@ function initDatabaseCreateHistory() {
         typeCode TEXT NOT NULL,
         titleName TEXT
         );`);
-
-  return db;
+  } catch (error) {
+    console.error("initDatabaseCreateHistory", error);
+  }
 }
