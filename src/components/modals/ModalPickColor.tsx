@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Button, Modal } from 'react-native';
+import { View, StyleSheet, Button, Modal, TouchableOpacity, Text } from 'react-native';
 import ColorPicker, { Panel1, Swatches, Preview, OpacitySlider, HueSlider } from 'reanimated-color-picker';
 
 type Props = {
@@ -30,7 +29,13 @@ export default function ModalPickColor({ showModal, setShowModal, defaultColor, 
                         <Swatches />
 
                     </ColorPicker>
-                    <Button title='Ok' onPress={() => setShowModal(false)} />
+
+                    <TouchableOpacity
+                        onPress={() => setShowModal(false)}
+                        className='bg-blue py-2 px-4 rounded-full my-1'
+                    >
+                        <Text className='text-white text-center font-semibold'>Ok</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </Modal>

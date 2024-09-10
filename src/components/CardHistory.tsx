@@ -32,7 +32,7 @@ export default function HistoryCardCodes({ itemInfo, pressFunc }: PropsIconCard)
                         <View className='pl-1 pr-4 flex-1'>
                             <View className='flex flex-row items-center'>
                                 <Text className='text-black text-base font-semibold'>{title}</Text>
-                                <View className='bg-blue py-[2px] px-[10px] rounded-full  ml-2'>
+                                <View className='bg-blue pt-[1px] pb-[2px] px-[10px] rounded-full  ml-2'>
                                     <Text className='text-white text-[11px]'>{itemInfo.type}</Text>
                                 </View>
 

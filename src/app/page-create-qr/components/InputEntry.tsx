@@ -21,7 +21,7 @@ export default function InputEntry({ title, placeholder, funcChange, inputMode =
                     placeholderTextColor={'#9B9B9B'}
                     style={{ width: '100%', color: '#fff', fontSize: 15, paddingVertical: 8, paddingHorizontal: 12 }}
                     onChangeText={funcChange}
-
+                    autoCapitalize='none'
                 />
             </View>
         </View>

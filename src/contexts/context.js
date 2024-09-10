@@ -7,16 +7,17 @@ const Context = createContext();
 function ContextProvider({ children }) {
 
     const [torch, setTorch] = useState(false);
+    const [facingCamera, setFacingCamera] = useState('back');
     const [screen, setScreen] = useState('scanner');
     const [listHistory, setListHistory] = useState([]);
     const [listCreates, setListCreates] = useState([]);
-    const [numsCardsPrimaryRows, setNumsCardsPrimaryRows] = useState(4);
+    const [showCards, setShowCards] = useState(false);
+    const [filterHistory, setFilterHistory] = useState('');
 
-    const valuesContext = { torch, setTorch, screen, setScreen, listCreates, setListCreates, listHistory, setListHistory, numsCardsPrimaryRows, setNumsCardsPrimaryRows };
+    const valuesContext = { torch, setTorch, screen, setScreen, listCreates, setListCreates, listHistory, setListHistory, showCards, setShowCards, facingCamera, setFacingCamera, filterHistory, setFilterHistory };
 
     async function getDataList() {
         try {
-
             const resultHistory = await getAllDataSqlHistory();
             const resultCreates = await getAllDataSqlCreates()
 

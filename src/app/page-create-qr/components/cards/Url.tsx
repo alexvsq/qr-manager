@@ -37,6 +37,7 @@ export default function Web() {
                 placeholder='https://www.google.com'
                 funcChange={value => handleChange('web', value)}
                 maxLength={120}
+                inputMode='url'
             />
 
             <View className='flex  w-full items-center justify-center my-2'>

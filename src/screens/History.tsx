@@ -1,31 +1,39 @@
 import Animated, { FadeInDown, FadeInUp, SlideInRight } from 'react-native-reanimated';
 import { IconCard } from '@/components/cards'
 import HistoryCardCodes from '@/components/CardHistory';
-import { useState, useEffect } from 'react';
 import { FlashList } from "@shopify/flash-list";
 import { HistoryData } from '@/types/types'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import { imgCards } from '@/utils/icons'
 import { router } from 'expo-router'
 import { useContextData } from '@/contexts/context';
 
 export function PrincipalHistory() {
 
-    const { numsCardsPrimaryRows } = useContextData()
+    const { showCards, filterHistory, setFilterHistory } = useContextData()
+    const filterHistoryFunc = (type: string) => {
+        if (filterHistory == type) {
+            setFilterHistory('')
+            return;
+        };
+        setFilterHistory(type)
+    }
 
     return (
-        <View>
+        <Animated.View entering={FadeInDown}>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 {
                     imgCards.map((item, index) => {
-                        if (index < numsCardsPrimaryRows) {
+                        if (showCards) {
                             return (
                                 <IconCard
                                     key={index}
                                     source={item.source}
                                     title={item.type}
                                     width={'22%'}
+                                    func={() => filterHistoryFunc(item.type)}
+                                    active={filterHistory == item.type}
                                 />
                             );
                         }
@@ -33,7 +41,7 @@ export function PrincipalHistory() {
                     })
                 }
             </View>
-        </View>
+        </Animated.View>
     );
 }
 
@@ -43,9 +51,7 @@ type itemCardHistory = {
 }
 
 export function SecondaryHistory() {
-    const { listHistory, setListHistory } = useContextData()
-
-
+    const { listHistory, filterHistory } = useContextData()
 
     const goToPageDetails = (id: number) => {
         router.push(`/page-codeHistory/${id}`)
@@ -56,10 +62,14 @@ export function SecondaryHistory() {
             className='flex-1'
         >
             <FlashList
-                data={[...listHistory].toReversed()}
+                data={[...listHistory]
+                    .toReversed()
+                    .filter((item) => filterHistory != '' ? item.type == filterHistory : true)
+                }
+
                 renderItem={({ item, index }: itemCardHistory) => (
                     <Animated.View
-                        entering={FadeInUp.delay(index * 80)}
+                        entering={FadeInUp.delay(index * 30)}
                     >
                         <HistoryCardCodes
                             itemInfo={item}

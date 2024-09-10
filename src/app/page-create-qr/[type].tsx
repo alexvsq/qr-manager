@@ -10,9 +10,10 @@ export default function Type() {
     const { type } = useLocalSearchParams();
 
     return (
-        <ScrollView className=' flex-1 bg-bg-1  p-3'>
-            <View className='flex items-center mt-1 mb-4'>
-                <View className=' bg-bg-2 aspect-square flex-row items-center justify-center rounded-full p-4 my-4 h-[90px]'>
+        <ScrollView className=' flex-1 bg-bg-1  px-3'>
+            <View className='flex items-center mt-4'>
+
+                <View className=' bg-bg-2 aspect-square flex-row items-center justify-center rounded-full p-4 mb-2 h-[90px]'>
                     <Image
                         style={{ width: '100%', height: '100%' }}
                         source={returnSource(String(type))}
@@ -20,21 +21,22 @@ export default function Type() {
                     />
                 </View>
 
-                <View className=' bg-blue ' style={{ paddingHorizontal: 16, paddingBottom: 2, borderRadius: 20 }}>
-                    <Text style={{ color: '#fff', fontSize: 20 }}>{type}</Text>
+                <View className=' bg-blue ' style={{ paddingHorizontal: 16, paddingBottom: 2, borderRadius: 40, marginVertical: 10 }}>
+                    <Text style={{ color: '#fff', fontSize: 16 }}>{type}</Text>
                 </View>
+
             </View>
 
             <ComponentCreate
                 type={String(type)}
             />
             <View >
-                <Text className='text-white text-lg my-1'>Notes</Text>
-                <View className='bg-bg-2 w-full h-20 rounded-[15px]'>
+                <Text className='text-white text-lg px-1'>Notes</Text>
+                <View className='bg-bg-2 w-full h-20 my-2 rounded-[15px]'>
                     <TextInput
                         placeholder='Write your notes here'
                         placeholderTextColor={'#9B9B9B'}
-                        style={{ width: '100%', fontSize: 15, paddingVertical: 8, paddingHorizontal: 16, color: '#fff' }}
+                        style={{ width: '100%', padding: 12, color: '#fff' }}
                     />
                 </View>
             </View>

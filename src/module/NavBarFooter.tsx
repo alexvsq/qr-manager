@@ -1,72 +1,78 @@
-import { View, StyleSheet, Pressable } from 'react-native'
-import React from 'react'
-import { IconCreate, IconHistory, IconScanner, IconSettings } from '@assets/icons/icons-navbar/icons'
+import { View, StyleSheet, Pressable, useWindowDimensions } from 'react-native'
+import { screens } from '@/utils/icons'
 import { useContextData } from '@/contexts/context'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
 
-export default function footeNavbar() {
+const AnimatedView = Animated.View;
+const sizeCircle = 50;
 
+export default function FooterNavbar() {
     const { screen, setScreen } = useContextData();
+    const insets = useSafeAreaInsets();
+    const { width } = useWindowDimensions();
+    const tabWidth = width / screens.length;
 
-    const screens = [
-        {
-            module: IconScanner,
-            name: 'scanner'
-        },
-        {
-            module: IconHistory,
-            name: 'history'
-        },
-        {
-            module: IconCreate,
-            name: 'create'
-        },
-        {
-            module: IconSettings,
-            name: 'settings'
-        }
-    ]
+    const springConfig = {
+        damping: 5,            // Disminuye el rebote (valores más altos reducen el rebote)
+        stiffness: 80,          // Aumenta la rigidez del resorte (valores más altos hacen que la animación sea más rápida)
+        mass: 0.2,                 // Ajusta la masa del objeto (valores más bajos aceleran la animación)
+    };
 
-    const insets = useSafeAreaInsets(); //
+    const circlePosition = useSharedValue((0 * tabWidth + (tabWidth / 2)) - sizeCircle / 2)
+
+    const animatedCircleStyle = useAnimatedStyle(() => {
+        return {
+            transform: [
+                { translateX: circlePosition.value },
+            ],
+        };
+    });
 
     return (
-
-        <View
-            style={[
-                { marginBottom: insets.bottom }]}
-            className='w-full bg-white'
-        >
-            <View className='bg-bg-1 py-[7px] px-2  rounded-t-[20px]'>
-                <View style={styles.containerButtons}>
-                    {
-                        screens.map((item, index) => {
-
-                            return (
-                                <Pressable
-                                    key={index}
-                                    onPress={() => {
-                                        setScreen(item.name)
-                                    }}
-                                    className={`${item.name == screen ? 'bg-blue rounded-full' : ''} p-[7px] `}
-                                >
-                                    <item.module
-                                        active={item.name == screen ? true : false}
-                                    />
-                                </Pressable>
-                            )
-                        })
-                    }
-                </View>
+        <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+            <View style={[styles.containerButtons]}>
+                {screens.map((item, index) => (
+                    <Pressable
+                        key={index}
+                        onPress={() => {
+                            setScreen(item.name);
+                            circlePosition.value = withSpring(((index * tabWidth + (tabWidth / 2)) - sizeCircle / 2), springConfig);
+                        }}
+                        style={[styles.containerButton, { width: tabWidth }]}
+                    >
+                        <item.module active={item.name === screen} />
+                    </Pressable>
+                ))}
+                <AnimatedView style={[styles.circle, animatedCircleStyle]} />
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        backgroundColor: '#1b1b1b',
+        borderTopStartRadius: 20,
+        borderTopEndRadius: 20,
+    },
     containerButtons: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
-        paddingHorizontal: 20
     },
-})
+    containerButton: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 16
+    },
+    circle: {
+        width: sizeCircle,
+        height: sizeCircle,
+        borderRadius: 40,
+        backgroundColor: '#3A86FF',
+        position: 'absolute',
+        zIndex: -1,
+    },
+});

@@ -1,8 +1,6 @@
-import { View, Text, Pressable, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { Text, TouchableOpacity } from 'react-native'
 import { shortenText } from '@/functions/functions'
 import { copyToClipboard } from '@/functions/functions'
-import { Image } from 'expo-image'
 
 export default function ItemTitleAndValue({ title, value }: { title: string, value: string }) {
 

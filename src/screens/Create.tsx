@@ -1,17 +1,16 @@
 import Animated, { FadeInDown, FadeInUp, SlideInRight } from 'react-native-reanimated';
 import { IconCard } from '@/components/cards'
 import HistoryCardCodes from '@/components/CardHistory';
-import { useState, useEffect } from 'react';
 import { FlashList } from "@shopify/flash-list";
 import { HistoryData } from '@/types/types'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import { imgCards } from '@/utils/icons'
 import { router } from 'expo-router'
 import { useContextData } from '@/contexts/context'
 
 export function PrincipalCreate() {
 
-    const { numsCardsPrimaryRows } = useContextData()
+    const { showCards } = useContextData()
 
     const goToCreate = (type: string) => {
         router.push('/page-create-qr/' + type)
@@ -21,7 +20,7 @@ export function PrincipalCreate() {
         <Animated.View entering={FadeInDown}>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 {imgCards.map((item, index) => {
-                    if (index < numsCardsPrimaryRows) {
+                    if (showCards) {
                         return (
                             <IconCard
                                 key={index}
@@ -46,23 +45,18 @@ type itemCardHistory = {
 }
 
 export function SecondaryCreate() {
-    const { listCreates, setListCreates } = useContextData()
+    const { listCreates } = useContextData()
 
     const goToPageEditCreateQr = (value: string) => {
-        router.push('/page-generate-qr/' + value)
+        router.push('/page-generate-qr/' + encodeURIComponent(value))
     }
-
-    useEffect(() => {
-
-    }, []);
-
     return (
         <View className='flex-1'>
             <FlashList
                 data={[...listCreates].toReversed()}
                 renderItem={({ item, index }: itemCardHistory) => (
                     <Animated.View
-                        entering={FadeInUp.delay(index * 80)}
+                        entering={FadeInUp.delay(index * 30)}
                     >
                         <HistoryCardCodes
                             itemInfo={item}
@@ -77,4 +71,3 @@ export function SecondaryCreate() {
         </View>
     )
 }
-

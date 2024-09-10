@@ -47,33 +47,34 @@ export default function Index() {
     return (
         <ScrollView style={styles.container}>
 
-            <View className='flex flex-row  items-center gap-4 justify-center my-2 '>
-                <Text className='text-white font-semibold text-[30px] capitalize'>{type}</Text>
-                <View className=' bg-bg-2 aspect-square flex-row items-center justify-center rounded-full p-2  h-[45px]'>
+            <View className='flex  items-center justify-center mt-5 mb-3 '>
+                <View className=' bg-bg-2 aspect-square flex-row items-center justify-center rounded-full p-4 h-[80px]'>
                     <Image
+                        style={{ width: '100%', height: '100%' }}
                         source={returnSource(type)}
                         contentFit='contain'
-                        style={{ width: '100%', height: '100%' }}
                     />
                 </View>
+                <Text className='text-white font-semibold text-[22px] my-1 capitalize'>{type}</Text>
             </View>
 
             <View style={styles.qrCodeContainer}>
 
-                <View className=' bg-bg-2 p-6 rounded-[15px] my-2'>
+                <View className=' bg-bg-2 p-5 rounded-[15px]'>
                     <QRCode
                         value={decode}
-                        size={220}
+                        size={250}
                         quietZone={20}
                         backgroundColor={BackGroundColor}
                         color={colorLines}
                         logo={image ? { uri: image } : undefined}
+                        logoBackgroundColor='transparent'
                         getRef={(c) => { qrRef.current = c }}
                     />
                 </View>
 
             </View>
-            <View className='flex-row gap-2 justify-center my-2'>
+            <View className='flex gap-2 items-center justify-center my-4'>
 
                 <TouchableOpacity
                     onPress={pickImage}
@@ -108,8 +109,8 @@ export default function Index() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
         backgroundColor: '#1b1b1b',
+        paddingHorizontal: 20,
     },
     qrCodeContainer: {
         width: '100%',

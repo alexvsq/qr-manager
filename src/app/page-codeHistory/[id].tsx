@@ -58,7 +58,7 @@ export default function Detail() {
         <ScrollView style={styles.container}>
             {data ? (
                 <>
-                    <View className='flex items-center mt-1 mb-4'>
+                    <View className='flex items-center my-4'>
                         <View className=' bg-bg-2 aspect-square flex-row items-center justify-center rounded-full p-4 mb-2 h-[90px]'>
                             <Image
                                 style={{ width: '100%', height: '100%' }}
@@ -69,8 +69,8 @@ export default function Detail() {
 
                         <Text style={styles.title}>{data.titleName}</Text>
 
-                        <View className=' bg-blue ' style={{ paddingHorizontal: 16, paddingBottom: 2, borderRadius: 20 }}>
-                            <Text style={{ color: '#fff', fontSize: 20 }}>{data.type}</Text>
+                        <View className=' bg-blue ' style={{ paddingHorizontal: 16, paddingBottom: 2, borderRadius: 40, marginVertical: 10 }}>
+                            <Text style={{ color: '#fff', fontSize: 16 }}>{data.type}</Text>
                         </View>
 
                     </View>
@@ -80,7 +80,7 @@ export default function Detail() {
                     </View>
                     <View style={{ marginVertical: 10, gap: 5 }}>
 
-                        <Text className=' text-center  text-text-dark my-2' >Tap One to Copy</Text>
+                        <Text className=' text-center  text-text-dark my-1' >Tap One to Copy</Text>
 
                         {
                             data &&
@@ -93,8 +93,8 @@ export default function Detail() {
                     </View>
 
                     <View >
-                        <Text className='text-white text-lg my-1'>Notes</Text>
-                        <View className='bg-bg-2 w-full h-20 rounded-[15px]'>
+                        <Text className='text-white text-lg px-1'>Notes</Text>
+                        <View className='bg-bg-2 w-full h-20 my-2 rounded-[15px]'>
                             <TextInput
                                 placeholder='Write your notes here'
                                 placeholderTextColor={'#9B9B9B'}
@@ -130,13 +130,12 @@ export default function Detail() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        paddingHorizontal: 20,
         backgroundColor: '#1b1b1b'
     },
     title: {
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: 'bold',
-        marginVertical: 10,
         color: '#fafafa'
     }
 });

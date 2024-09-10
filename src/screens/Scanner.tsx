@@ -6,10 +6,13 @@ import { imgCardsCamera } from '@/utils/icons'
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
 export function PrincipalScanner() {
-    const { torch, setTorch, numsCardsPrimaryRows } = useContextData()
+    const { torch, setTorch, facingCamera, setFacingCamera } = useContextData()
 
     const toggleTorch = () => {
         setTorch(!torch)
+    }
+    const toggleFacingCamera = () => {
+        setFacingCamera(facingCamera == 'back' ? 'front' : 'back')
     }
 
     return (
@@ -24,7 +27,8 @@ export function PrincipalScanner() {
                                 key={index}
                                 source={item.source}
                                 title={item.type}
-                                func={item.type == 'flash' ? toggleTorch : undefined}
+                                func={item.type == 'flash' ? toggleTorch : item.type == 'switch' ? toggleFacingCamera : undefined}
+                                active={item.type == 'flash' && torch}
                             />
                         )
 
