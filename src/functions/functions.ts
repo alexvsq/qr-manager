@@ -116,7 +116,7 @@ export const getNumberData = (value: string): string => {
 };
 
 export const getSMSData = (value: string): SMSData => {
-  const match = value.match(/SMSTO:(\d+):(.+)/);
+  const match = value.match(/SMSTO:(\+?\d+):(.+)/);
   return {
     phoneNumber: match ? match[1].trim() : "",
     message: match ? match[2].trim() : "",
