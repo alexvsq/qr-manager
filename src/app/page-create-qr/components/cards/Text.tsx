@@ -1,4 +1,4 @@
-import { View, Text, Alert, Pressable } from 'react-native'
+import { View, Text, Alert, Pressable, TextInput } from 'react-native'
 import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
@@ -33,13 +33,23 @@ export default function TextComponent() {
 
     return (
         <View>
-            <InputEntry
+            {/* <InputEntry
                 title='Text'
                 placeholder='example text'
                 funcChange={value => handleChange('textValue', value)}
-                maxLength={120}
-            />
-
+            /> */}
+            <View >
+                <Text className='text-text-dark px-2 font-semibold mb-2'>Text</Text>
+                <View className='bg-bg-2 w-full h-20 my-1 rounded-[15px]'>
+                    <TextInput
+                        placeholder='example text'
+                        placeholderTextColor={'#9B9B9B'}
+                        style={{ width: '100%', padding: 12, color: '#fff' }}
+                        maxLength={140}
+                        onChange={value => handleChange('textValue', String(value))}
+                    />
+                </View>
+            </View>
             <View className='flex  w-full items-center justify-center my-2'>
 
                 <Pressable
