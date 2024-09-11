@@ -1,11 +1,10 @@
 import { HistoryData } from "@/types/types";
-import { database } from "@/functions/sql/openDatabase";
+import { database, initDatabaseQrHistory } from "@/functions/sql/openDatabase";
 
 export async function saveDataQr(
   dataScanned: HistoryData
 ): Promise<HistoryData | null> {
   try {
-    initDatabaseQrHistory();
     const { value, type, typeCode, titleName, date } = dataScanned;
     const typeCodeString = typeCode ? typeCode : "";
     const data = value;
@@ -32,7 +31,6 @@ export async function saveDataQr(
 }
 export async function getOneRow(id: string): Promise<HistoryData | null> {
   try {
-    initDatabaseQrHistory();
     const row = await database.getFirstAsync<HistoryData | null>(
       "SELECT * FROM qrhistory WHERE id = ?",
       [id]
@@ -51,7 +49,6 @@ export async function getOneRow(id: string): Promise<HistoryData | null> {
 export async function deleteOneRow(id: number) {
   try {
     const idString = String(id);
-    initDatabaseQrHistory();
     const res = await database.runAsync(`delete from qrhistory where id = ?`, [
       idString,
     ]);
@@ -73,27 +70,9 @@ export async function getAllDataSqlHistory() {
 
 export async function deleteAllData() {
   try {
-    initDatabaseQrHistory();
     const res = await database.runAsync(`drop table qrhistory`);
     console.log(res);
   } catch (error) {
     console.error("deleteAllData", error);
-  }
-}
-
-function initDatabaseQrHistory() {
-  try {
-    database.execSync(`
-      PRAGMA journal_mode = WAL;
-      CREATE TABLE IF NOT EXISTS qrhistory (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date  TEXT NOT NULL,
-        value TEXT NOT NULL,
-        type TEXT NOT NULL,
-        typeCode TEXT NOT NULL,
-        titleName TEXT
-        );`);
-  } catch (error) {
-    console.error("initDatabaseQrHistory", error);
   }
 }

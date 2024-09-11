@@ -1,9 +1,11 @@
 import { HistoryData } from "@/types/types";
-import { database } from "@/functions/sql/openDatabase";
+import {
+  database,
+  initDatabaseCreateHistory,
+} from "@/functions/sql/openDatabase";
 
 export async function saveCreateQrHistory(data: HistoryData) {
   try {
-    initDatabaseCreateHistory();
     const { value, type, typeCode, titleName, date } = data;
 
     const result = await database.runAsync(
@@ -27,22 +29,5 @@ export async function getAllDataSqlCreates() {
     return result;
   } catch (error) {
     console.error("getAllDataSqlCreates", error);
-  }
-}
-
-function initDatabaseCreateHistory() {
-  try {
-    database.execSync(`
-      PRAGMA journal_mode = WAL;
-      CREATE TABLE IF NOT EXISTS createQrHistory (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date  TEXT NOT NULL,
-        value TEXT NOT NULL,
-        type TEXT NOT NULL,
-        typeCode TEXT NOT NULL,
-        titleName TEXT
-        );`);
-  } catch (error) {
-    console.error("initDatabaseCreateHistory", error);
   }
 }
