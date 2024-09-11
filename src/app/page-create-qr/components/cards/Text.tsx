@@ -30,6 +30,7 @@ export default function TextComponent() {
 
         await validateANDSaveCreateQR(valueData.textValue)
     }
+    console.log(valueData.textValue)
 
     return (
         <View>
@@ -46,7 +47,7 @@ export default function TextComponent() {
                         placeholderTextColor={'#9B9B9B'}
                         style={{ width: '100%', padding: 12, color: '#fff' }}
                         maxLength={140}
-                        onChange={value => handleChange('textValue', String(value))}
+                        onChange={e => handleChange('textValue', e.nativeEvent.text)}
                     />
                 </View>
             </View>
