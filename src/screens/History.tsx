@@ -1,9 +1,9 @@
-import Animated, { FadeInDown, FadeInUp, SlideInRight } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { IconCard } from '@/components/cards'
 import HistoryCardCodes from '@/components/CardHistory';
 import { FlashList } from "@shopify/flash-list";
 import { HistoryData } from '@/types/types'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { imgCards } from '@/utils/icons'
 import { router } from 'expo-router'
 import { useContextData } from '@/contexts/context';
@@ -69,26 +69,31 @@ export function SecondaryHistory() {
     }
     return (
         <View className='flex-1'>
-            <FlashList
-                data={[...listHistory]
-                    .toReversed()
-                    .filter((item) => filterHistory != '' ? item.type == filterHistory : true)
-                }
+            {
+                listHistory.length > 0
+                    ? <FlashList
+                        data={[...listHistory]
+                            .toReversed()
+                            .filter((item) => filterHistory != '' ? item.type == filterHistory : true)
+                        }
 
-                renderItem={({ item, index }: itemCardHistory) => (
-                    <Animated.View
-                        entering={FadeInUp.delay(index * 30)}
-                    >
-                        <HistoryCardCodes
-                            itemInfo={item}
-                            pressFunc={() => goToPageDetails(item.id!)}
-                            eliminateFunction={() => deleteWithId(item.id!)}
-                        />
-                    </Animated.View>
-                )}
-                estimatedItemSize={200}
-                keyExtractor={(item) => item.id!.toString()}
-            />
+                        renderItem={({ item, index }: itemCardHistory) => (
+                            <Animated.View
+                                entering={FadeInUp.delay(index * 30)}
+                            >
+                                <HistoryCardCodes
+                                    itemInfo={item}
+                                    pressFunc={() => goToPageDetails(item.id!)}
+                                    eliminateFunction={() => deleteWithId(item.id!)}
+                                />
+                            </Animated.View>
+                        )}
+                        estimatedItemSize={200}
+                        keyExtractor={(item) => item.id!.toString()}
+                    />
+                    : <Text className='text-text-dark text-center text-lg mt-5'>No data to show</Text>
+            }
+
         </View>
     );
 }
