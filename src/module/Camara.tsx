@@ -59,27 +59,31 @@ export default function Camara() {
                     dataQR={dataQr!}
                 />
             </Modal>
+            {
+                permission?.granted ?
+                    <View style={styles.cameraContainer}>
+                        <CameraView
+                            style={styles.camera}
+                            enableTorch={torch}
+                            barcodeScannerSettings={{
+                                barcodeTypes: ["qr"],
+                            }}
+                            onBarcodeScanned={(data) => saveCodeScanned(data)}
+                            ratio='1:1'
+                            facing={facingCamera}
+                            mirror={true}
+                            zoom={zoom}
+                        >
+                            <ImageBackground
+                                style={styles.imgScanner}
+                                source={bgImage}
+                                resizeMode='cover'
+                            ></ImageBackground>
+                        </CameraView>
+                    </View>
+                    : <Text className='text-white text-xl'>Loading</Text>
 
-            <View style={styles.cameraContainer}>
-                <CameraView
-                    style={styles.camera}
-                    enableTorch={torch}
-                    barcodeScannerSettings={{
-                        barcodeTypes: ["qr"],
-                    }}
-                    onBarcodeScanned={(data) => saveCodeScanned(data)}
-                    ratio='1:1'
-                    facing={facingCamera}
-                    mirror={true}
-                    zoom={zoom}
-                >
-                    <ImageBackground
-                        style={styles.imgScanner}
-                        source={bgImage}
-                        resizeMode='cover'
-                    ></ImageBackground>
-                </CameraView>
-            </View>
+            }
             <View className='flex flex-row justify-center items-center my-2'>
                 <Text className=' text-blue text-xl font-semibold'>-</Text>
                 <Slider
