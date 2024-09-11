@@ -3,9 +3,11 @@ import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
 import { validateANDSaveCreateQR } from '@/functions/validates'
+import { useContextData } from '@/contexts/context'
 
 export default function Email() {
 
+    const { listCreates, setListCreates } = useContextData()
     const [valueData, setValueData] = useState({
         email: '',
         subject: '',
@@ -30,7 +32,10 @@ export default function Email() {
         //"MATMSG:TO:alejandro@gmail.com;SUB:Hola;BODY:Esto es una prueba;"
         const dataEmail = `MATMSG:TO:${valueData.email};SUB:${valueData.subject};BODY:${valueData.message};`
         router.push('/page-generate-qr/' + encodeURIComponent(dataEmail))
-        await validateANDSaveCreateQR(dataEmail)
+        const newRow = await validateANDSaveCreateQR(dataEmail)
+        if (newRow) {
+            setListCreates([...listCreates, newRow])
+        }
     }
 
     return (

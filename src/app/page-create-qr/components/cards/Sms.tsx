@@ -3,9 +3,11 @@ import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
 import { validateANDSaveCreateQR } from '@/functions/validates'
+import { useContextData } from '@/contexts/context'
 
 export default function Sms() {
 
+    const { listCreates, setListCreates } = useContextData()
     const [valueData, setValueData] = useState({
         number: '',
         message: ''
@@ -29,7 +31,10 @@ export default function Sms() {
         //"SMSTO:924165577:Hola cómo estás "
         const dataSms = `SMSTO:${valueData.number}:${valueData.message}`
         router.push('/page-generate-qr/' + encodeURIComponent(dataSms))
-        await validateANDSaveCreateQR(dataSms)
+        const newRow = await validateANDSaveCreateQR(dataSms)
+        if (newRow) {
+            setListCreates([...listCreates, newRow])
+        }
     }
 
     return (

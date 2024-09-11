@@ -3,9 +3,11 @@ import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
 import { validateANDSaveCreateQR } from '@/functions/validates'
+import { useContextData } from '@/contexts/context'
 
 export default function Web() {
 
+    const { listCreates, setListCreates } = useContextData()
     const [valueData, setValueData] = useState({
         name: '',
         lastName: '',
@@ -54,7 +56,10 @@ EMAIL:${valueData.email}
 END:VCARD
 `
         router.push('/page-generate-qr/' + encodeURIComponent(dataContact))
-        await validateANDSaveCreateQR(dataContact)
+        const newRow = await validateANDSaveCreateQR(dataContact)
+        if (newRow) {
+            setListCreates([...listCreates, newRow])
+        }
     }
 
     return (

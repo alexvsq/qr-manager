@@ -1,11 +1,13 @@
-import { TextInput, View, Text, Pressable, Alert } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import { useState } from 'react';
 import { router } from 'expo-router'
 import InputEntry from '../InputEntry'
 import { validateANDSaveCreateQR } from '@/functions/validates'
+import { useContextData } from '@/contexts/context'
 
 export default function wifi() {
 
+    const { listCreates, setListCreates } = useContextData()
     const [valueWifi, setValueWifi] = useState({
         name: '',
         password: '',
@@ -29,7 +31,10 @@ export default function wifi() {
         }
         const wifiData = `WIFI:S:${valueWifi.name};T:${valueWifi.security};P:${valueWifi.password};H:false;;`
         router.push('/page-generate-qr/' + encodeURIComponent(wifiData))
-        await validateANDSaveCreateQR(wifiData)
+        const newRow = await validateANDSaveCreateQR(wifiData)
+        if (newRow) {
+            setListCreates([...listCreates, newRow])
+        }
     }
 
     return (

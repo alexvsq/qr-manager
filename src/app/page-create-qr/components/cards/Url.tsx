@@ -3,9 +3,11 @@ import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
 import { validateANDSaveCreateQR } from '@/functions/validates'
+import { useContextData } from '@/contexts/context'
 
 export default function Web() {
 
+    const { listCreates, setListCreates } = useContextData()
     const [valueData, setValueData] = useState({
         web: '',
     })
@@ -27,7 +29,10 @@ export default function Web() {
         }
         const dataWeb = valueData.web
         router.push('/page-generate-qr/' + encodeURIComponent(dataWeb))
-        await validateANDSaveCreateQR(dataWeb)
+        const newRow = await validateANDSaveCreateQR(dataWeb)
+        if (newRow) {
+            setListCreates([...listCreates, newRow])
+        }
     }
 
     return (

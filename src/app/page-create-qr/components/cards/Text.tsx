@@ -3,9 +3,11 @@ import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
 import { validateANDSaveCreateQR } from '@/functions/validates'
+import { useContextData } from '@/contexts/context'
 
 export default function TextComponent() {
 
+    const { listCreates, setListCreates } = useContextData()
     const [valueData, setValueData] = useState({
         textValue: '',
     })
@@ -28,9 +30,11 @@ export default function TextComponent() {
         //"TEL:9214165577"
         router.push('/page-generate-qr/' + valueData.textValue)
 
-        await validateANDSaveCreateQR(valueData.textValue)
+        const newRow = await validateANDSaveCreateQR(valueData.textValue)
+        if (newRow) {
+            setListCreates([...listCreates, newRow])
+        }
     }
-    console.log(valueData.textValue)
 
     return (
         <View>

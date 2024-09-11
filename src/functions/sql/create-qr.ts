@@ -4,19 +4,32 @@ import {
   initDatabaseCreateHistory,
 } from "@/functions/sql/openDatabase";
 
-export async function saveCreateQrHistory(data: HistoryData) {
+export async function saveCreateQrHistory(
+  valueToSave: HistoryData
+): Promise<HistoryData | null> {
   try {
-    const { value, type, typeCode, titleName, date } = data;
-
+    const { value, type, typeCode, titleName, date } = valueToSave;
+    const typeCodeString = typeCode ? typeCode : "";
     const result = await database.runAsync(
       "INSERT INTO createQrHistory (date,value, type, typeCode ,titleName) VALUES (?, ?, ?,?, ?);",
       [date, value, type, typeCode, titleName!]
     );
-
+    if (!result) return null;
     console.log("savedCreateQr!, id: ", result.lastInsertRowId);
-    return result.lastInsertRowId;
+
+    const newRow = {
+      id: result.lastInsertRowId,
+      date: date,
+      value: value,
+      type: type,
+      typeCode: typeCodeString,
+      titleName: titleName!,
+    };
+
+    return newRow;
   } catch (error) {
     console.log("saveCreateQrHistory", error);
+    return null;
   }
 }
 
