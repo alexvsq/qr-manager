@@ -7,6 +7,7 @@ import { View } from 'react-native'
 import { imgCards } from '@/utils/icons'
 import { router } from 'expo-router'
 import { useContextData } from '@/contexts/context'
+import { deleteOneRowCreates } from '@/functions/sql/create-qr'
 
 export function PrincipalCreate() {
 
@@ -45,10 +46,20 @@ type itemCardHistory = {
 }
 
 export function SecondaryCreate() {
-    const { listCreates } = useContextData()
+    const { listCreates, setListCreates } = useContextData()
 
     const goToPageEditCreateQr = (value: string) => {
         router.push('/page-generate-qr/' + encodeURIComponent(value))
+    }
+    const deleteWithIdCreates = async (id: number) => {
+        try {
+            if (!id) return;
+            const newListHistory = listCreates.filter((x: HistoryData) => x.id !== id)
+            setListCreates(newListHistory)
+            await deleteOneRowCreates(id)
+        } catch (error) {
+            console.log('deleteWithIdCreates', error)
+        }
     }
     return (
         <View className='flex-1'>
@@ -61,6 +72,7 @@ export function SecondaryCreate() {
                         <HistoryCardCodes
                             itemInfo={item}
                             pressFunc={() => goToPageEditCreateQr(item.value)}
+                            eliminateFunction={() => deleteWithIdCreates(item.id!)}
                         />
                     </Animated.View>
                 )}

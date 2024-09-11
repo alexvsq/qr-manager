@@ -7,6 +7,7 @@ import { View } from 'react-native'
 import { imgCards } from '@/utils/icons'
 import { router } from 'expo-router'
 import { useContextData } from '@/contexts/context';
+import { deleteOneRow } from '@/functions/sql/history-qr'
 
 export function PrincipalHistory() {
 
@@ -51,16 +52,23 @@ type itemCardHistory = {
 }
 
 export function SecondaryHistory() {
-    const { listHistory, filterHistory } = useContextData()
+    const { listHistory, filterHistory, setListHistory } = useContextData()
 
     const goToPageDetails = (id: number) => {
         router.push(`/page-codeHistory/${id}`)
     }
+    async function deleteWithId(id: number) {
+        try {
+            if (!id) return;
+            const newListHistory = listHistory.filter((x: HistoryData) => x.id !== id)
+            setListHistory(newListHistory)
+            await deleteOneRow(id)
+        } catch (error) {
+            console.log('error', error)
+        }
+    }
     return (
-        <View
-            //entering={FadeInUp}
-            className='flex-1'
-        >
+        <View className='flex-1'>
             <FlashList
                 data={[...listHistory]
                     .toReversed()
@@ -74,6 +82,7 @@ export function SecondaryHistory() {
                         <HistoryCardCodes
                             itemInfo={item}
                             pressFunc={() => goToPageDetails(item.id!)}
+                            eliminateFunction={() => deleteWithId(item.id!)}
                         />
                     </Animated.View>
                 )}

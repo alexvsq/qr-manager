@@ -13,8 +13,9 @@ function ContextProvider({ children }) {
     const [listCreates, setListCreates] = useState([]);
     const [showCards, setShowCards] = useState(false);
     const [filterHistory, setFilterHistory] = useState('');
+    const [elimanteOption, setEliminateOption] = useState(false);
 
-    const valuesContext = { torch, setTorch, screen, setScreen, listCreates, setListCreates, listHistory, setListHistory, showCards, setShowCards, facingCamera, setFacingCamera, filterHistory, setFilterHistory };
+    const valuesContext = { torch, setTorch, screen, setScreen, listCreates, setListCreates, listHistory, setListHistory, showCards, setShowCards, facingCamera, setFacingCamera, filterHistory, setFilterHistory, elimanteOption, setEliminateOption };
 
     async function getDataList() {
         try {
