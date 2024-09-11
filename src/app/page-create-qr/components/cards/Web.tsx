@@ -41,7 +41,7 @@ export default function Web() {
                 title='Web'
                 placeholder='www.google.com'
                 funcChange={value => handleChange('web', value)}
-                maxLength={120}
+                maxLength={150}
                 inputMode='url'
             />
 

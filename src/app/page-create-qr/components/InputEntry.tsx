@@ -8,7 +8,7 @@ type InputEntryProps = {
     maxLength?: number
 }
 
-export default function InputEntry({ title, placeholder, funcChange, inputMode = 'text', maxLength = 18 }: InputEntryProps) {
+export default function InputEntry({ title, placeholder, funcChange, inputMode = 'text', maxLength = 30 }: InputEntryProps) {
     return (
 
         <View className='my-1'>
