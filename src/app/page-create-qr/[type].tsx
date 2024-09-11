@@ -30,7 +30,7 @@ export default function Type() {
             <ComponentCreate
                 type={String(type)}
             />
-            <View >
+            {/*   <View >
                 <Text className='text-white text-lg px-1'>Notes</Text>
                 <View className='bg-bg-2 w-full h-20 my-2 rounded-[15px]'>
                     <TextInput
@@ -39,7 +39,7 @@ export default function Type() {
                         style={{ width: '100%', padding: 12, color: '#fff' }}
                     />
                 </View>
-            </View>
+            </View> */}
         </ScrollView>
     )
 }
