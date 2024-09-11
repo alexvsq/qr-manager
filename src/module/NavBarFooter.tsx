@@ -30,21 +30,23 @@ export default function FooterNavbar() {
     });
 
     return (
-        <View style={[styles.container, { paddingBottom: insets.bottom }]}>
-            <View style={[styles.containerButtons]}>
-                {screens.map((item, index) => (
-                    <Pressable
-                        key={index}
-                        onPress={() => {
-                            setScreen(item.name);
-                            circlePosition.value = withSpring(((index * tabWidth + (tabWidth / 2)) - sizeCircle / 2), springConfig);
-                        }}
-                        style={[styles.containerButton, { width: tabWidth }]}
-                    >
-                        <item.module active={item.name === screen} />
-                    </Pressable>
-                ))}
-                <AnimatedView style={[styles.circle, animatedCircleStyle]} />
+        <View className=' bg-white'>
+            <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+                <View style={[styles.containerButtons]}>
+                    {screens.map((item, index) => (
+                        <Pressable
+                            key={index}
+                            onPress={() => {
+                                setScreen(item.name);
+                                circlePosition.value = withSpring(((index * tabWidth + (tabWidth / 2)) - sizeCircle / 2), springConfig);
+                            }}
+                            style={[styles.containerButton, { width: tabWidth }]}
+                        >
+                            <item.module active={item.name === screen} />
+                        </Pressable>
+                    ))}
+                    <AnimatedView style={[styles.circle, animatedCircleStyle]} />
+                </View>
             </View>
         </View>
     );
