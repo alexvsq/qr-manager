@@ -31,3 +31,15 @@ export async function getAllDataSqlCreates() {
     console.error("getAllDataSqlCreates", error);
   }
 }
+export async function deleteOneRowCreates(id: number) {
+  try {
+    const idString = String(id);
+    const res = await database.runAsync(
+      `delete from createQrHistory where id = ?`,
+      [idString]
+    );
+    console.log(res);
+  } catch (error) {
+    console.error("deleteOneRowCreates", error);
+  }
+}
