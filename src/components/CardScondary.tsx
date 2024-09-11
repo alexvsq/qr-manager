@@ -13,8 +13,10 @@ export default function CardScondary({ children, title }: { children: React.Reac
                 {
                     screen !== 'scanner' &&
                     <TouchableOpacity
-                        onPress={() => setEliminateOption((prev: boolean) => !prev)}>
-                        <Text className='text-[#af2525] font-semibold text-[12px]'>Eliminar</Text>
+                        onPress={() => setEliminateOption((prev: boolean) => !prev)}
+                        className='rounded-full bg-[#af2525] py-1 px-3 flex items-center justify-center'
+                    >
+                        <Text className='text-white font-semibold text-[12px]'>{elimanteOption ? 'Cancelar' : 'Eliminar'}</Text>
                     </TouchableOpacity>
                 }
             </View>
