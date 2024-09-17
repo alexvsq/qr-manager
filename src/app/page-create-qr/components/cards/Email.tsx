@@ -1,4 +1,4 @@
-import { View, Text, Alert, Pressable } from 'react-native'
+import { View, Text, Alert, TouchableOpacity } from 'react-native'
 import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
@@ -59,12 +59,12 @@ export default function Email() {
 
             <View className='flex  w-full items-center justify-center my-2'>
 
-                <Pressable
+                <TouchableOpacity
                     onPress={btnCreateQr}
                     className='bg-blue py-1 px-4 rounded-full my-1'
                 >
                     <Text className='text-white'>Create QR code</Text>
-                </Pressable>
+                </TouchableOpacity>
 
             </View>
         </View>
