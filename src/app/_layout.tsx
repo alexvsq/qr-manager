@@ -1,7 +1,6 @@
 import { Stack } from 'expo-router/stack';
 import { View, Text, Platform } from 'react-native';
 import { ContextProvider } from '@/contexts/context'
-import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Image } from 'expo-image';
 import SettingsGo from '@/components/SettingsGo';
@@ -11,113 +10,115 @@ export default function Layout() {
     if (os === "android") NavigationBar.setBackgroundColorAsync("#1b1b1b"); // background color navigation bar
 
     return (
-        <>
-            <StatusBar style='light' />
-            <ContextProvider >
-                <View style={{ flex: 1, backgroundColor: '#1b1b1b' }}>
+        <ContextProvider >
+            <View style={{ flex: 1, backgroundColor: '#1b1b1b' }}>
 
-                    <Stack>
-                        <Stack.Screen
-                            name="index" // Nombre de la ruta (puede variar según tu configuración)
-                            options={{
-                                headerShown: true,
-                                headerShadowVisible: false,
-                                headerRight: () => {
-                                    return <SettingsGo />
-                                },
-                                headerStyle: {
-                                    backgroundColor: '#1b1b1b',
-                                },
-                                headerTitleAlign: 'center',
-                                headerTitle: () => (
-                                    <View>
-                                        <Image
-                                            source={require('@assets/icons/logos/logo1.png')}
-                                            contentFit='contain'
-                                            style={{ width: 120, height: 35 }}
-                                        />
-                                    </View>
-                                ),
-                                headerBackTitleVisible: false,
-                                headerTintColor: '#3A86FF',
-                            }}
-                        />
+                <Stack
+                    screenOptions={{
+                        statusBarColor: '#1b1b1b',
+                        statusBarStyle: 'light',
+                    }}
+                >
+                    <Stack.Screen
+                        name="index" // Nombre de la ruta (puede variar según tu configuración)
+                        options={{
+                            headerShown: true,
+                            headerShadowVisible: false,
+                            headerRight: () => {
+                                return <SettingsGo />
+                            },
+                            headerStyle: {
+                                backgroundColor: '#1b1b1b',
+                            },
+                            headerTitleAlign: 'center',
+                            headerTitle: () => (
+                                <View>
+                                    <Image
+                                        source={require('@assets/icons/logos/logo1.png')}
+                                        contentFit='contain'
+                                        style={{ width: 120, height: 35 }}
+                                    />
+                                </View>
+                            ),
+                            headerBackTitleVisible: false,
+                            headerTintColor: '#3A86FF',
+                        }}
+                    />
 
 
-                        <Stack.Screen
-                            name="page-codeHistory/[id]" // Nombre de la ruta para la segunda pantalla
-                            options={{
-                                headerShown: true,
-                                headerStyle: {
-                                    backgroundColor: '#272727',
-                                },
-                                headerTitleAlign: 'center',
-                                headerTitle: "Details", // Título específico para esta pantalla
-                                headerBackTitleVisible: false,
-                                //headerTintColor: '#fff',
-                                headerTintColor: '#3A86FF',
-                                headerTitleStyle: {
-                                    color: '#fff'
-                                }
-                            }}
-                        />
+                    <Stack.Screen
+                        name="page-codeHistory/[id]" // Nombre de la ruta para la segunda pantalla
+                        options={{
+                            headerShown: true,
+                            headerStyle: {
+                                backgroundColor: '#272727',
+                            },
+                            headerTitleAlign: 'center',
+                            headerTitle: "Details", // Título específico para esta pantalla
+                            headerBackTitleVisible: false,
+                            //headerTintColor: '#fff',
+                            headerTintColor: '#3A86FF',
+                            headerTitleStyle: {
+                                color: '#fff'
+                            }
+                        }}
+                    />
 
-                        <Stack.Screen
-                            name="page-generate-qr/[value]" // Nombre de la ruta para la segunda pantalla
-                            options={{
-                                headerShown: true,
-                                headerStyle: {
-                                    backgroundColor: '#272727',
-                                },
-                                headerTitleAlign: 'center',
-                                headerTitle: "Qr", // Título específico para esta pantalla
-                                headerBackTitleVisible: false,
-                                // headerTintColor: '#fff',
-                                headerTintColor: '#3A86FF',
-                                headerTitleStyle: {
-                                    color: '#fff'
-                                }
-                            }}
-                        />
+                    <Stack.Screen
+                        name="page-generate-qr/[value]" // Nombre de la ruta para la segunda pantalla
+                        options={{
+                            headerShown: true,
+                            headerStyle: {
+                                backgroundColor: '#272727',
+                            },
+                            headerTitleAlign: 'center',
+                            headerTitle: "Qr", // Título específico para esta pantalla
+                            headerBackTitleVisible: false,
+                            // headerTintColor: '#fff',
+                            headerTintColor: '#3A86FF',
+                            headerTitleStyle: {
+                                color: '#fff'
+                            }
+                        }}
+                    />
 
-                        <Stack.Screen
-                            name="page-create-qr/[type]" // Nombre de la ruta para la segunda pantalla
-                            options={{
-                                headerShown: true,
-                                headerStyle: {
-                                    backgroundColor: '#272727',
-                                },
-                                headerTitleAlign: 'center',
-                                headerTitle: "Create Qr", // Título específico para esta pantalla
-                                headerBackTitleVisible: false,
-                                //headerTintColor: '#fff',
-                                headerTintColor: '#3A86FF',
-                                headerTitleStyle: {
-                                    color: '#fff'
-                                }
-                            }}
-                        />
-                        <Stack.Screen
-                            name="page-settings" // Nombre de la ruta para la segunda pantalla
-                            options={{
-                                headerShown: true,
-                                headerStyle: {
-                                    backgroundColor: '#272727',
-                                },
-                                headerTitleAlign: 'center',
-                                headerTitle: "Settings", // Título específico para esta pantalla
-                                headerBackTitleVisible: false,
-                                // headerTintColor: '#fff',
-                                headerTintColor: '#3A86FF',
-                                headerTitleStyle: {
-                                    color: '#fff'
-                                }
-                            }}
-                        />
-                    </Stack>
+                    <Stack.Screen
+                        name="page-create-qr/[type]" // Nombre de la ruta para la segunda pantalla
+                        options={{
+                            headerShown: true,
+                            headerStyle: {
+                                backgroundColor: '#272727',
+                            },
+                            headerTitleAlign: 'center',
+                            headerTitle: "Create Qr", // Título específico para esta pantalla
+                            headerBackTitleVisible: false,
+                            //headerTintColor: '#fff',
+                            headerTintColor: '#3A86FF',
+                            headerTitleStyle: {
+                                color: '#fff'
+                            }
+                        }}
+                    />
+                    <Stack.Screen
+                        name="page-settings" // Nombre de la ruta para la segunda pantalla
+                        options={{
+                            headerShown: true,
+                            headerStyle: {
+                                backgroundColor: '#272727',
+                            },
+                            headerTitleAlign: 'center',
+                            headerTitle: "Settings", // Título específico para esta pantalla
+                            headerBackTitleVisible: false,
+                            // headerTintColor: '#fff',
+                            headerTintColor: '#3A86FF',
+                            headerTitleStyle: {
+                                color: '#fff'
+                            }
+                        }}
+                    />
+                </Stack>
 
-                </View>
-            </ContextProvider>
-        </>
+            </View>
+        </ContextProvider>
     )
 }

@@ -2,39 +2,36 @@ export interface ScreenText {
   id: string;
   title: string;
   subtitle: string;
-  secondBtn: boolean;
+  secondBtn?: string;
 }
 
 export interface ScreensTexts {
   scanner: ScreenText;
   history: ScreenText;
   create: ScreenText;
-  settings: ScreenText;
 }
 
 export const screensTextsTitles: ScreensTexts = {
   scanner: {
     id: "scanner",
     title: "Scanner",
-    subtitle: "Scann a Qr Code", // Cambio en "Subtitle" a "subtitle"
-    secondBtn: false,
+    subtitle: "Scann a Qr Code",
   },
   history: {
     id: "history",
     title: "History",
     subtitle: "Codes Scanned",
-    secondBtn: false,
+    secondBtn: "Filters",
   },
   create: {
     id: "create",
     title: "Create",
-    subtitle: "Code Created",
-    secondBtn: false,
+    subtitle: "Codes Created",
+    secondBtn: "Create",
   },
-  settings: {
-    id: "settings",
-    title: "Settings",
-    subtitle: "settings",
-    secondBtn: false,
-  },
+};
+
+export const BtnDelete = {
+  delete: "Delete",
+  cancel: "Cancel",
 };

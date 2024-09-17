@@ -42,3 +42,10 @@ export interface ContactData2 {
   homePhone: string;
   email: string;
 }
+
+export interface SettingsDataSql {
+  id: number;
+  languages: string;
+  sound: boolean;
+  vibrate: boolean;
+}

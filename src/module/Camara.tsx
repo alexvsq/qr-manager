@@ -7,6 +7,7 @@ import { validateANDSave } from '@/functions/validates'
 import { router } from 'expo-router'
 import { HistoryData } from '@/types/types'
 import Slider from '@react-native-community/slider';
+import { vibrationConfirmation, playSoundConfirmation } from '@/functions/scanComfirmations'
 
 export default function Camara() {
     const { torch, facingCamera } = useContextData()
@@ -15,7 +16,7 @@ export default function Camara() {
     const [dataQr, setDataQr] = useState<BarcodeScanningResult>();
     const [newRowSaved, setnewRowSaved] = useState<HistoryData | null>()
     const [zoom, setZoom] = useState(0)
-    const { listHistory, setListHistory } = useContextData()
+    const { listHistory, setListHistory, settings } = useContextData()
 
     useEffect(() => {
         requestPermission()
@@ -25,7 +26,13 @@ export default function Camara() {
 
     const saveCodeScanned = async (data: BarcodeScanningResult) => {
         if (modalVisible) return;
-        //console.log(data);
+        if (settings.vibrate) {
+            vibrationConfirmation()
+        }
+        if (settings.sound) {
+            playSoundConfirmation()
+        }
+
         setDataQr(data);
         setModalVisible(true);
         try {

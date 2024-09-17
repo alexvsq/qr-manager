@@ -62,3 +62,28 @@ export function initDatabaseCreateHistory() {
     console.error("initDatabaseCreateHistory", error);
   }
 }
+
+export function initDatabaseSettings() {
+  try {
+    const res = database.getFirstSync(`
+        SELECT name 
+        FROM sqlite_master 
+        WHERE type='table' AND name='settings';
+      `);
+
+    if (!res) {
+      database.execSync(`
+        PRAGMA journal_mode = WAL;
+        CREATE TABLE IF NOT EXISTS settings (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          languages TEXT NOT NULL,
+          sound BOOLEAN NOT NULL,
+          vibrate BOOLEAN NOT NULL
+        );
+        INSERT INTO settings (languages, sound, vibrate) VALUES ('en', 0, 1);
+      `);
+    }
+  } catch (error) {
+    console.error("initDatabaseSettings", error);
+  }
+}
