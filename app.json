@@ -18,7 +18,7 @@
     ],
     "name": "QR Manager",
     "slug": "qr-manager",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "scheme": "myapp",
     "icon": "./assets/icon.png",
@@ -41,7 +41,8 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.heinseng.qrmanager"
+      "package": "com.heinseng.qrmanager",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
