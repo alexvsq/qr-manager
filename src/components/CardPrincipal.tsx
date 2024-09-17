@@ -57,13 +57,13 @@ export default function CardPrincipal({ children, title }: Props) {
                     screen != 'scanner' &&
                     <TouchableOpacity
                         onPress={pressCross}
-                        className='bg-blue py-1 px-4 rounded-full flex flex-row items-center justify-center'
+                        className='flex flex-row items-center justify-center'
                     >
-                        <Text className=' text-white text-[12px] mr-2'>{screen == 'create' ? screensTextsTitles.create.secondBtn : screensTextsTitles.history.secondBtn}</Text>
+                        <Text className=' text-text-dark font-semibold mr-2'>{screen == 'create' ? screensTextsTitles.create.secondBtn : screensTextsTitles.history.secondBtn}</Text>
                         <Image
-                            source={require('@assets/icons/arrow-white.png')}
+                            source={require('@assets/icons/icons-png/drop-arrow.png')}
                             contentFit='contain'
-                            style={[{ width: 12, height: 12 }, showCards ? { transform: [{ rotate: '180deg' }] } : {}]}
+                            style={[{ width: 25, height: 25 }, showCards ? { transform: [{ rotate: '180deg' }] } : { transform: [{ rotate: '0deg' }] }]}
                         />
                     </TouchableOpacity>
                 }

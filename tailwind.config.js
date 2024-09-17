@@ -9,7 +9,7 @@ module.exports = {
         'bg-icon': '#2B3A52',
         'lines-dark': '#3F3F3F',
         'lines-light': '#EAEAEA',
-        'text-dark': '#545454',
+        'text-dark': '#636363',
         'blue': '#3A86FF',
         'delete-red': '#781515'
       },

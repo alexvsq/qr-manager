@@ -13,6 +13,7 @@ export default function Detail() {
     const { id } = useLocalSearchParams();
     const [data, setData] = useState<HistoryData | null>()
     const { listHistory, setListHistory } = useContextData()
+    const [notes, setNotes] = useState<string>('')
 
     const goToCreateQr = () => router.push('/page-generate-qr/' + encodeURIComponent(data!.value))
 
@@ -99,6 +100,9 @@ export default function Detail() {
                                 placeholder='Write your notes here'
                                 placeholderTextColor={'#9B9B9B'}
                                 style={{ width: '100%', padding: 12, color: '#fff' }}
+                                multiline={true}
+                                onChangeText={(text) => setNotes(text)}
+                                value={notes}
                             />
                         </View>
                     </View>

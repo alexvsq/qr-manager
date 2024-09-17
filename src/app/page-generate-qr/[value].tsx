@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, ScrollView, StyleSheet, Button, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, Button, Text, TouchableOpacity, Alert } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { useLocalSearchParams } from 'expo-router';
 import ModalPickColor from '@/components/modals/ModalPickColor'
@@ -7,6 +7,7 @@ import { returnType } from '@/functions/orderData'
 import { Image } from 'expo-image';
 import { returnSource } from '@/functions/functions'
 import * as ImagePicker from 'expo-image-picker';
+import { saveImageQr, shareQRImage } from '@/functions/saveQrImg'
 
 export default function Index() {
     const { value } = useLocalSearchParams();
@@ -18,7 +19,7 @@ export default function Index() {
     const [BackGroundColor, setBackGroundColor] = useState('#fff');
     const [colorLines, setColorLines] = useState('#000000');
 
-    const qrRef = React.useRef();
+    const qrRef = useRef();
 
     const onSelectColorBg = ({ hex }: { hex: string }) => {
         setBackGroundColor(hex);
@@ -43,6 +44,13 @@ export default function Index() {
             setImage(result.assets[0].uri);
         }
     };
+    const saveImage = async () => {
+        await saveImageQr(qrRef)
+    };
+    const shareImage = async () => {
+        await shareQRImage(qrRef)
+    };
+
     //console.log(qrRef.current)
     return (
         <ScrollView style={styles.container}>
@@ -58,41 +66,79 @@ export default function Index() {
                 <Text className='text-white font-semibold text-[22px] my-1 capitalize'>{type}</Text>
             </View>
 
-            <View style={styles.qrCodeContainer}>
+            <View className=' flex justify-center items-center '>
+                <View style={styles.qrCodeContainer}>
 
-                <View className=' bg-bg-2 p-5 rounded-[15px]'>
-                    <QRCode
-                        value={decode}
-                        size={250}
-                        quietZone={20}
-                        backgroundColor={BackGroundColor}
-                        color={colorLines}
-                        logo={image ? { uri: image } : undefined}
-                        logoBackgroundColor='transparent'
-                        getRef={(c) => { qrRef.current = c }}
-                    />
+                    <View className=' bg-bg-2 p-5 rounded-[15px]'>
+                        <QRCode
+                            value={decode}
+                            size={250}
+                            quietZone={20}
+                            backgroundColor={BackGroundColor}
+                            color={colorLines}
+                            logo={image ? { uri: image } : undefined}
+                            logoBackgroundColor='transparent'
+                            getRef={(c) => { qrRef.current = c }}
+                        />
+                    </View>
+
+                    <View className='flex flex-row w-full items-center justify-around'>
+                        <View className=' flex gap-2 items-center justify-center'>
+                            <TouchableOpacity
+                                onPress={saveImage}
+                                className=' bg-blue p-2 rounded-full aspect-square flex-row justify-center items-center'>
+                                <Image
+                                    source={require('@assets/icons/icons-png/download.png')}
+                                    style={{ width: 30, height: 30 }}
+                                    contentFit='contain'
+                                />
+                            </TouchableOpacity>
+                            <Text className=' text-white text-center font-semibold'>Download</Text>
+                        </View>
+                        <View className=' flex gap-2 items-center justify-center'>
+                            <TouchableOpacity
+                                onPress={shareImage}
+                                className=' bg-blue p-2 rounded-full aspect-square flex-row justify-center items-center'>
+                                <Image
+                                    source={require('@assets/icons/icons-png/share.png')}
+                                    style={{ width: 30, height: 30 }}
+                                    contentFit='contain'
+                                />
+                            </TouchableOpacity>
+                            <Text className=' text-white text-center font-semibold'>Share</Text>
+                        </View>
+                    </View>
+
+
+
+                    {/*    <TouchableOpacity
+                        onPress={saveImage}
+                        className='bg-blue w-full py-1 px-5 rounded-full'
+                    >
+                        <Text className='text-white text-center font-semibold text-[16px]'>Save QR Code as Image</Text>
+                    </TouchableOpacity> */}
+
                 </View>
-
             </View>
             <View className='flex gap-2 items-center justify-center my-4'>
 
                 <TouchableOpacity
                     onPress={pickImage}
-                    className='bg-blue py-1 px-4 rounded-full my-1'
+                    className='bg-bg-2 py-1 px-4 rounded-full my-1'
                 >
-                    <Text className='text-white'>Logo Picker</Text>
+                    <Text className='text-blue font-semibold'>Logo Picker</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => setShowModal2(true)}
-                    className='bg-blue py-1 px-4 rounded-full my-1'
+                    className='bg-bg-2 py-1 px-4 rounded-full my-1'
                 >
-                    <Text className='text-white'>Color Background</Text>
+                    <Text className='text-blue font-semibold'>Color Background</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => setShowModal(true)}
-                    className='bg-blue py-1 px-4 rounded-full my-1'
+                    className='bg-bg-2 py-1 px-4 rounded-full my-1'
                 >
-                    <Text className='text-white'>Color Code</Text>
+                    <Text className='text-blue font-semibold'>Color Lines</Text>
                 </TouchableOpacity>
 
             </View>
@@ -113,8 +159,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     qrCodeContainer: {
-        width: '100%',
+        width: 250,
         alignItems: 'center',
         justifyContent: 'center',
+        gap: 20,
     }
 });
