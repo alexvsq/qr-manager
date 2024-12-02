@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import { Image } from 'expo-image';

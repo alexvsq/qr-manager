@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 import Wifi from './cards/Wifi'
 import Web from './cards/Web'
 import Url from './cards/Url'

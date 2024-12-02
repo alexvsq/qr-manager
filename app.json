@@ -14,7 +14,9 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
-      ]
+      ],
+      "expo-router",
+      "expo-barcode-scanner"
     ],
     "name": "QR Manager",
     "slug": "qr-manager",
@@ -23,6 +25,7 @@
     "scheme": "myapp",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "backgroundColor": "#1b1b1b",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -35,14 +38,14 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#1b1b1b"
       },
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.heinseng.qrmanager",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"

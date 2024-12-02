@@ -1,6 +1,5 @@
-import { View, Text, Pressable, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Pressable, TouchableOpacity } from 'react-native'
 import { Image } from 'expo-image';
-import { router } from 'expo-router'
 import { HistoryData } from '@/types/types'
 import { returnSource, shortenText } from '@/functions/functions'
 import { useContextData } from '@/contexts/context'

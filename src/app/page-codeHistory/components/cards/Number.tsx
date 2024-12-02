@@ -1,4 +1,4 @@
-import { View, Text, Linking } from 'react-native'
+import { View, Linking } from 'react-native'
 import { getNumberData } from '@/functions/functions'
 import { HistoryData } from '@/types/types'
 import ItemTitleAndValue from '../titleValue'

@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text, Linking, Platform } from 'react-native'
+import { View, Linking, Platform } from 'react-native'
 import { getWifiData } from '@/functions/functions'
 import { HistoryData } from '@/types/types'
 import ItemTitleAndValue from '../titleValue'

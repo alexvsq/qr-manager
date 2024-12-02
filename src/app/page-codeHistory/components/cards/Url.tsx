@@ -1,7 +1,6 @@
-import { View, Linking } from 'react-native'
+import { View } from 'react-native'
 import { HistoryData } from '@/types/types'
 import ItemTitleAndValue from '../titleValue'
-import BtnAction from '../BtnAction'
 
 export default function Url({ data }: { data: HistoryData }) {
 

@@ -3,7 +3,8 @@ import { View } from 'react-native';
 import { IconCard } from '@/components/cards';
 import { useContextData } from '@/contexts/context'
 import { imgCardsCamera } from '@/utils/icons'
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import Animated, { FadeInDown } from 'react-native-reanimated';
+import { router } from 'expo-router'
 
 export function PrincipalScanner() {
     const { torch, setTorch, facingCamera, setFacingCamera } = useContextData()
@@ -14,7 +15,9 @@ export function PrincipalScanner() {
     const toggleFacingCamera = () => {
         setFacingCamera(facingCamera == 'back' ? 'front' : 'back')
     }
-
+    const funcImage = () => {
+        router.push('/scanImage')
+    }
     return (
         <Animated.View entering={FadeInDown}>
             <View className='flex flex-row justify-around '>
@@ -27,7 +30,7 @@ export function PrincipalScanner() {
                                 key={index}
                                 source={item.source}
                                 title={item.type}
-                                func={item.type == 'flash' ? toggleTorch : item.type == 'switch' ? toggleFacingCamera : undefined}
+                                func={item.type == 'flash' ? toggleTorch : item.type == 'switch' ? toggleFacingCamera : funcImage}
                                 active={item.type == 'flash' && torch}
                             />
                         )

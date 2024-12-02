@@ -1,8 +1,7 @@
-import { View, Text, Pressable, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { shortenText } from '@/functions/functions'
 import { copyToClipboard } from '@/functions/functions'
-import { Image } from 'expo-image'
 
 export default function Input({ title, value }: { title: string, value: string }) {
 

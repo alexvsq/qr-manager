@@ -1,5 +1,5 @@
-import { View, StyleSheet, Button, Modal, TouchableOpacity, Text } from 'react-native';
-import ColorPicker, { Panel1, Swatches, Preview, OpacitySlider, HueSlider } from 'reanimated-color-picker';
+import { View, StyleSheet, Modal, TouchableOpacity, Text } from 'react-native';
+import ColorPicker, { Panel1, Swatches, Preview, HueSlider } from 'reanimated-color-picker';
 
 type Props = {
     showModal: boolean,

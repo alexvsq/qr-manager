@@ -5,6 +5,7 @@ export type HistoryData = {
   typeCode: string;
   date: string;
   titleName?: string;
+  notes?: string;
 };
 
 export interface WifiData {

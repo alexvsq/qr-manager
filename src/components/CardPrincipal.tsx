@@ -1,17 +1,16 @@
-import { View, Text, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import Animated, {
     useAnimatedStyle,
     measure,
     useSharedValue,
     useAnimatedRef,
-    withSpring,
     withTiming,
     runOnUI
 } from 'react-native-reanimated';
 import { useCallback, } from 'react';
 import { useContextData } from '@/contexts/context'
 import { Image } from 'expo-image';
-import { screensTextsTitles, ScreensTexts } from '@/utils/screensTextsTitles'
+import { screensTextsTitles } from '@/utils/screensTextsTitles'
 
 type Props = {
     children: React.ReactNode,

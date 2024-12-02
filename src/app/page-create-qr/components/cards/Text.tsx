@@ -1,5 +1,4 @@
 import { View, Text, Alert, TouchableOpacity, TextInput } from 'react-native'
-import InputEntry from '../InputEntry'
 import { useState } from 'react';
 import { router } from 'expo-router'
 import { validateANDSaveCreateQR } from '@/functions/validates'

@@ -1,5 +1,5 @@
-import { View, Linking } from 'react-native'
-import { getContactData, getContactData2, shortenText } from '@/functions/functions'
+import { View } from 'react-native'
+import { getContactData2, } from '@/functions/functions'
 import { HistoryData } from '@/types/types'
 import ItemTitleAndValue from '../titleValue'
 import BtnAction from '../BtnAction'

@@ -15,7 +15,7 @@ export const screensTextsTitles: ScreensTexts = {
   scanner: {
     id: "scanner",
     title: "Scanner",
-    subtitle: "Scann a Qr Code",
+    subtitle: "Scan a Qr Code",
   },
   history: {
     id: "history",

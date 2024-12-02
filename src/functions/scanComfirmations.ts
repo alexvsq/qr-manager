@@ -3,7 +3,7 @@ import { Audio } from "expo-av";
 
 export const vibrationConfirmation = async () => {
   try {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   } catch (error) {
     console.error("vibrationComfirmation", error);
   }

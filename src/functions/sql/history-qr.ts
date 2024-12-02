@@ -29,6 +29,34 @@ export async function saveDataQr(
     return null;
   }
 }
+
+export const saveNoteToSql = async (id: number, notes: string) => {
+  try {
+    // Verificar si la columna "notes" existe
+    const columnCheck = await database.getAllAsync(
+      `PRAGMA table_info(qrhistory);`
+    );
+
+    const columnExists = columnCheck.some((col: any) => col.name === "notes");
+
+    // Si la columna no existe, agregarla
+    if (!columnExists) {
+      await database.runAsync(`ALTER TABLE qrhistory ADD COLUMN notes TEXT;`);
+      console.log('Columna "notes" agregada');
+    }
+
+    // Actualizar la fila con el ID proporcionado
+    const result = await database.runAsync(
+      `UPDATE qrhistory SET notes = ? WHERE id = ?;`,
+      [notes, id]
+    );
+
+    console.log("Nota guardada:", result.changes);
+  } catch (error) {
+    console.error("saveNoteToSql", error);
+  }
+};
+
 export async function getOneRow(id: string): Promise<HistoryData | null> {
   try {
     const row = await database.getFirstAsync<HistoryData | null>(

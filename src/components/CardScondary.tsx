@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useContextData } from '@/contexts/context';
 import { Image } from 'expo-image';
 

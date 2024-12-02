@@ -44,11 +44,11 @@ export const imgCardsCamera = [
   {
     source: require("@assets/icons/icons-png/flash.png"),
     type: "flash",
-  },
+  } /* 
   {
     source: require("@assets/icons/icons-png/image.png"),
     type: "image",
-  },
+  }, */,
   {
     source: require("@assets/icons/icons-png/camera-switch.png"),
     type: "switch",

@@ -1,12 +1,12 @@
 import { ScrollView, Text, View, TouchableOpacity, Switch } from 'react-native'
 import { Languages } from '@/utils/lenguages'
-import { getDataSettings, saveVibrate, saveSound } from '@/functions/sql/settings'
-import { useEffect, useState } from 'react'
-import { SettingsDataSql } from '@/types/types'
+import { saveVibrate, saveSound } from '@/functions/sql/settings'
 import { useContextData } from '@/contexts/context'
+import { useTranslation } from 'react-i18next';
 
 export default function Settings() {
 
+    const { t, i18n } = useTranslation();
     const { settings, setSettings } = useContextData()
 
     const handleChangeSound = async () => {
@@ -49,8 +49,8 @@ export default function Settings() {
                 <View className='my-2'>
                     <Text className='text-blue text-lg my-2 font-semibold'>Scann</Text>
 
-                    <View className='flex flex-row  items-center justify-between'>
-                        <Text className=' text-white font-semibold text-[15px] mr-1'>Sound</Text>
+                    <View className='flex flex-row  items-center justify-between my-2'>
+                        <Text className=' text-white font-semibold text-[15px] mr-1'>{t('Welcome to React')}</Text>
                         <Switch
                             trackColor={{ false: '#767577', true: '#81b0ff' }}
                             thumbColor={'#3A86FF'}
@@ -61,7 +61,7 @@ export default function Settings() {
                     </View>
                     <View className=' bg-lines-dark h-[1px] w-full'>
                     </View>
-                    <View className='flex flex-row  items-center justify-between'>
+                    <View className='flex flex-row  items-center justify-between my-2'>
                         <Text className=' text-white font-semibold text-[15px] mr-1'>Vibrate</Text>
                         <Switch
                             trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -83,7 +83,7 @@ export default function Settings() {
                     <View className=' bg-lines-dark h-[1px] w-full'>
                     </View>
                     <TouchableOpacity className=' my-4'>
-                        <Text className=' text-white font-semibold text-[15px] mr-1'>Talk whith us</Text>
+                        <Text className=' text-white font-semibold text-[15px] mr-1'>Contact us</Text>
                     </TouchableOpacity>
                 </View>
 

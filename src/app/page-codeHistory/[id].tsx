@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Alert, TouchableOpacity, ScrollView, TextInput } from 'react-native'
 import { useLocalSearchParams, router } from 'expo-router'
-import { getOneRow, deleteOneRow } from '@/functions/sql/history-qr'
+import { getOneRow, deleteOneRow, saveNoteToSql } from '@/functions/sql/history-qr'
 import { useEffect, useState } from 'react'
 import { HistoryData } from '@/types/types'
 import { Image } from 'expo-image';
@@ -48,10 +48,22 @@ export default function Detail() {
         router.back()
     }
 
+    const saveNote = async () => {
+        if (!data || notes == '') return;
+        try {
+            await saveNoteToSql(data.id!, notes)
+        } catch (error) {
+            console.log('saveNote', error)
+        }
+    }
+
     useEffect(() => {
         getOneRow(String(id))
             .then(res => {
                 setData(res)
+                if (res?.notes) {
+                    setNotes(res.notes)
+                }
             })
     }, [])
 
@@ -104,6 +116,14 @@ export default function Detail() {
                                 onChangeText={(text) => setNotes(text)}
                                 value={notes}
                             />
+                        </View>
+                        <View className='flex flex-row justify-end'>
+                            <TouchableOpacity
+                                onPress={saveNote}
+                                className='bg-bg-2 py-1 px-4 rounded-full my-1'
+                            >
+                                <Text className='text-blue font-semibold'>Save Note</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import NavBarFooter from '@/module/NavBarFooter'
 import CardPrincipal from '@/components/CardPrincipal';
 import CardScondary from '@/components/CardScondary';

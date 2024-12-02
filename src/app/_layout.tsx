@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router/stack';
-import { View, Text, Platform } from 'react-native';
+import { View, Platform } from 'react-native';
 import { ContextProvider } from '@/contexts/context'
 import * as NavigationBar from 'expo-navigation-bar';
 import { Image } from 'expo-image';
@@ -15,7 +15,6 @@ export default function Layout() {
 
                 <Stack
                     screenOptions={{
-                        statusBarColor: '#1b1b1b',
                         statusBarStyle: 'light',
                     }}
                 >
@@ -40,7 +39,6 @@ export default function Layout() {
                                     />
                                 </View>
                             ),
-                            headerBackTitleVisible: false,
                             headerTintColor: '#3A86FF',
                         }}
                     />
@@ -55,7 +53,6 @@ export default function Layout() {
                             },
                             headerTitleAlign: 'center',
                             headerTitle: "Details", // Título específico para esta pantalla
-                            headerBackTitleVisible: false,
                             //headerTintColor: '#fff',
                             headerTintColor: '#3A86FF',
                             headerTitleStyle: {
@@ -73,7 +70,6 @@ export default function Layout() {
                             },
                             headerTitleAlign: 'center',
                             headerTitle: "Qr", // Título específico para esta pantalla
-                            headerBackTitleVisible: false,
                             // headerTintColor: '#fff',
                             headerTintColor: '#3A86FF',
                             headerTitleStyle: {
@@ -91,7 +87,6 @@ export default function Layout() {
                             },
                             headerTitleAlign: 'center',
                             headerTitle: "Create Qr", // Título específico para esta pantalla
-                            headerBackTitleVisible: false,
                             //headerTintColor: '#fff',
                             headerTintColor: '#3A86FF',
                             headerTitleStyle: {
@@ -108,7 +103,6 @@ export default function Layout() {
                             },
                             headerTitleAlign: 'center',
                             headerTitle: "Settings", // Título específico para esta pantalla
-                            headerBackTitleVisible: false,
                             // headerTintColor: '#fff',
                             headerTintColor: '#3A86FF',
                             headerTitleStyle: {

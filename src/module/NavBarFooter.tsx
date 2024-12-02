@@ -2,7 +2,7 @@ import { View, StyleSheet, Pressable, useWindowDimensions } from 'react-native'
 import { screens } from '@/utils/icons'
 import { useContextData } from '@/contexts/context'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 
 const AnimatedView = Animated.View;
 const sizeCircle = 50;
@@ -33,6 +33,7 @@ export default function FooterNavbar() {
         <View className=' bg-white'>
             <View style={[styles.container, { paddingBottom: insets.bottom }]}>
                 <View style={[styles.containerButtons]}>
+                    <AnimatedView style={[styles.circle, animatedCircleStyle]} />
                     {screens.map((item, index) => (
                         <Pressable
                             key={index}
@@ -45,7 +46,6 @@ export default function FooterNavbar() {
                             <item.module active={item.name === screen} />
                         </Pressable>
                     ))}
-                    <AnimatedView style={[styles.circle, animatedCircleStyle]} />
                 </View>
             </View>
         </View>
@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 16
+        padding: 16,
+        zIndex: 2
     },
     circle: {
         width: sizeCircle,
@@ -75,6 +76,6 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         backgroundColor: '#3A86FF',
         position: 'absolute',
-        zIndex: -1,
+        zIndex: 1,
     },
 });

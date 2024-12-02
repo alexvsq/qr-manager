@@ -19,6 +19,7 @@ export function initDatabaseQrHistory() {
             type TEXT NOT NULL,
             typeCode TEXT NOT NULL,
             titleName TEXT
+            notes TEXT
           );
           INSERT INTO qrhistory (date, titleName, type, typeCode, value) VALUES ('9/10/2024, 10:51:45 AM', '+1234567890', 'number', '256','TEL:+1234567890');
           INSERT INTO qrhistory (date, titleName, type, typeCode, value) VALUES ('9/10/2024, 10:46:58 AM', 'google', 'web', '256','https://www.google.com');

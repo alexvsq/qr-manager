@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, Alert, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { router } from 'expo-router'
 import InputEntry from '../InputEntry'

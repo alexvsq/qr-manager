@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getAllDataSqlHistory } from '@/functions/sql/history-qr';
 import { getAllDataSqlCreates } from '@/functions/sql/create-qr';
-import { getDataSettings, saveVibrate, saveSound } from '@/functions/sql/settings'
+import { getDataSettings } from '@/functions/sql/settings'
+import '@/i18n';
 
 const Context = createContext();
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Modal, View, ImageBackground, ScrollView, Text } from 'react-native';
+import { StyleSheet, Modal, View, ImageBackground, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { CameraView, useCameraPermissions, BarcodeScanningResult } from 'expo-camera';
 import { useEffect, useState } from 'react';
 import { useContextData } from '@/contexts/context'
@@ -88,7 +88,11 @@ export default function Camara() {
                             ></ImageBackground>
                         </CameraView>
                     </View>
-                    : <Text className='text-white text-xl'>Loading</Text>
+                    : <View className='flex flex-row justify-center items-center my-2 w-full h-full'>
+                        <TouchableOpacity onPress={() => requestPermission()} className=' bg-blue rounded-full px-6 py-2'>
+                            <Text className='text-white text-lg'> Enable Camera </Text>
+                        </TouchableOpacity>
+                    </View>
 
             }
             <View className='flex flex-row justify-center items-center my-2'>

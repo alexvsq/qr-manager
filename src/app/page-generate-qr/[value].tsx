@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, ScrollView, StyleSheet, Button, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { useLocalSearchParams } from 'expo-router';
 import ModalPickColor from '@/components/modals/ModalPickColor'

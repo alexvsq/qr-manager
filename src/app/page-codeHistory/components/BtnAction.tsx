@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text, Linking, Platform } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 
 export default function BtnAction({ func, title }: { func: () => void, title: string }) {
 
