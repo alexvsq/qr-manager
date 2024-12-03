@@ -59,14 +59,20 @@ export const screens = [
   {
     module: IconScanner,
     name: "scanner",
+    title: "Scanner",
+    subtitle: "Scan a Qr Code",
   },
   {
     module: IconHistory,
     name: "history",
+    title: "History",
+    subtitle: "Codes Scanned",
   },
   {
     module: IconCreate,
     name: "create",
+    title: "Create",
+    subtitle: "Codes Created",
   },
   /*   {
         module: IconSettings,

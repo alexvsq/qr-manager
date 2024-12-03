@@ -6,13 +6,13 @@ import { useContextData } from '@/contexts/context'
 export default function SecondaryPage() {
     const { screen } = useContextData()
 
-    if (screen == 'scanner') {
+    if (screen.name == 'scanner') {
         return <SecondaryScanner />
     }
-    if (screen == 'create') {
+    if (screen.name == 'create') {
         return <SecondaryCreate />
     }
-    if (screen == 'history') {
+    if (screen.name == 'history') {
         return <SecondaryHistory />
     }
 

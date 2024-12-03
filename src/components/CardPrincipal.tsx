@@ -10,7 +10,7 @@ import Animated, {
 import { useCallback, } from 'react';
 import { useContextData } from '@/contexts/context'
 import { Image } from 'expo-image';
-import { screensTextsTitles } from '@/utils/screensTextsTitles'
+import { useScreensTexts } from '@/utils/screensTextsTitles'
 
 type Props = {
     children: React.ReactNode,
@@ -22,6 +22,7 @@ export default function CardPrincipal({ children, title }: Props) {
     const { showCards, setShowCards, screen } = useContextData()
     const listRef = useAnimatedRef<Animated.View>()
     const heightValue = useSharedValue(0)
+    const { secondBtn } = useScreensTexts()
 
     const heightAnimationStyle = useAnimatedStyle(() => ({
         height: heightValue.value
@@ -53,12 +54,12 @@ export default function CardPrincipal({ children, title }: Props) {
 
                 <Text className='text-white text-lg font-semibold'>{title}</Text>
                 {
-                    screen != 'scanner' &&
+                    screen.name != 'scanner' &&
                     <TouchableOpacity
                         onPress={pressCross}
                         className='flex flex-row items-center justify-center'
                     >
-                        <Text className=' text-text-dark font-semibold mr-2'>{screen == 'create' ? screensTextsTitles.create.secondBtn : screensTextsTitles.history.secondBtn}</Text>
+                        <Text className=' text-text-dark font-semibold mr-2'>{secondBtn}</Text>
                         <Image
                             source={require('@assets/icons/icons-png/drop-arrow.png')}
                             contentFit='contain'

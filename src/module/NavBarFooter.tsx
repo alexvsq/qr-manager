@@ -38,12 +38,12 @@ export default function FooterNavbar() {
                         <Pressable
                             key={index}
                             onPress={() => {
-                                setScreen(item.name);
+                                setScreen(item);
                                 circlePosition.value = withSpring(((index * tabWidth + (tabWidth / 2)) - sizeCircle / 2), springConfig);
                             }}
                             style={[styles.containerButton, { width: tabWidth }]}
                         >
-                            <item.module active={item.name === screen} />
+                            <item.module active={item.name === screen.name} />
                         </Pressable>
                     ))}
                 </View>

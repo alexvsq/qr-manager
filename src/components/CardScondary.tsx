@@ -16,7 +16,7 @@ export default function CardScondary({ children, title }: { children: React.Reac
                 <View className=' flex flex-row items-center justify-center'>
                     <View className=' p-1 bg-bg-2 rounded-full aspect-square flex items-center justify-center mr-[6px]'>
                         <Image
-                            source={screen == 'scanner' ? scann : screen == 'history' ? history : create}
+                            source={screen.name == 'scanner' ? scann : screen.name == 'history' ? history : create}
                             contentFit='contain'
                             style={{ width: 18, height: 18 }}
                         />
@@ -24,12 +24,12 @@ export default function CardScondary({ children, title }: { children: React.Reac
                     <Text className='text-black text-base font-semibold'>{title}</Text>
                 </View>
                 {
-                    screen !== 'scanner' &&
+                    screen.name !== 'scanner' &&
                     <TouchableOpacity
                         onPress={() => setEliminateOption((prev: boolean) => !prev)}
                         className='flex flex-row items-center justify-center'
                     >
-                        <Text className='text-text-dark font-semibold text-[12px] mr-2'>{elimanteOption ? 'Cancelar' : 'Eliminar'}</Text>
+                        <Text className='text-text-dark font-semibold text-[12px] mr-2'>{elimanteOption ? 'Cancel' : 'Delete'}</Text>
                         <View className='rounded-full bg-[#af2525] p-1 w-6 aspect-square flex items-center justify-center'>
                             <Image
                                 source={require('@assets/icons/icons-png/delete.png')}

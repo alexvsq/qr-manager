@@ -2,11 +2,9 @@ import { ScrollView, Text, View, TouchableOpacity, Switch } from 'react-native'
 import { Languages } from '@/utils/lenguages'
 import { saveVibrate, saveSound } from '@/functions/sql/settings'
 import { useContextData } from '@/contexts/context'
-import { useTranslation } from 'react-i18next';
 
 export default function Settings() {
 
-    const { t, i18n } = useTranslation();
     const { settings, setSettings } = useContextData()
 
     const handleChangeSound = async () => {
@@ -32,7 +30,7 @@ export default function Settings() {
         <ScrollView className='flex-1 bg-bg-1 px-3 pt-5'>
 
             <View>
-                <Text className='text-blue text-lg my-3 font-semibold'>Lenguajes</Text>
+                {/*  <Text className='text-blue text-lg my-3 font-semibold'>Lenguajes</Text>
                 <View className='flex flex-row flex-wrap my-1'>
                     {
                         Languages.map((language, index) => {
@@ -44,13 +42,13 @@ export default function Settings() {
                             )
                         })
                     }
-                </View>
+                </View> */}
 
                 <View className='my-2'>
                     <Text className='text-blue text-lg my-2 font-semibold'>Scann</Text>
 
                     <View className='flex flex-row  items-center justify-between my-2'>
-                        <Text className=' text-white font-semibold text-[15px] mr-1'>{t('Welcome to React')}</Text>
+                        <Text className=' text-white font-semibold text-[15px] mr-1'>Sound</Text>
                         <Switch
                             trackColor={{ false: '#767577', true: '#81b0ff' }}
                             thumbColor={'#3A86FF'}

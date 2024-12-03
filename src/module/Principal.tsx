@@ -6,13 +6,13 @@ import { useContextData } from '@/contexts/context'
 export default function PrincipalPage() {
     const { screen } = useContextData()
 
-    if (screen == 'scanner') {
+    if (screen.name == 'scanner') {
         return <PrincipalScanner />
     }
-    if (screen == 'create') {
+    if (screen.name == 'create') {
         return <PrincipalCreate />
     }
-    if (screen == 'history') {
+    if (screen.name == 'history') {
         return <PrincipalHistory />
     }
 

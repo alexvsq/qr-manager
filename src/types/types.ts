@@ -50,3 +50,23 @@ export interface SettingsDataSql {
   sound: boolean;
   vibrate: boolean;
 }
+
+export interface screenType {
+  module: any;
+  name: string;
+  title: string;
+  subtitle: string;
+}
+
+export interface ScreenText {
+  id: string;
+  title: string;
+  subtitle: string;
+  secondBtn?: string;
+}
+
+export interface ScreensTexts {
+  scanner: ScreenText;
+  history: ScreenText;
+  create: ScreenText;
+}
